@@ -133,17 +133,37 @@ Create a database:
 mysql> CREATE DATABASE graph;
 ```
 
-Open a Shell, enter inside this repository folder and generate the models in the MySQL database through the Sequelize CLI Yarn `sync` script:
+Open a Shell, enter inside this repository folder and generate the models in the MySQL database through the Sequelize CLI Yarn `db-sync` script:
 
 ```sh
 $ yarn db-sync
 ```
+
+To generate a Sequelize model from scratch enter inside this repository folder and generate the models through the Sequelize CLI Yarn `db-init` script:
+
+> This script can override the models that already exist in the models folder
+
+```sh
+$ yarn db-init
+```
+
 </details>
 
 After create a database and generate the models inside the database, set the database access configuration inside the [config/config.json](./config/config.json) file.
 </details>
 
 #### Run
+
+<details>
+<summary>Start</summary>
+Start an [Express](https://expressjs.com) live reload ([Nodemon](https://nodemon.io/)) server through the Yarn `start` script:
+
+```sh
+$ yarn start
+```
+
+Open the [localhost:3000](http://localhost:3000) URL in the browser. To open the GraphQL unique endpoint open [localhost:3000/graphql](http://localhost:3000/graphql) URL in the browser.
+</details>
 
 #### Debug
 
@@ -152,6 +172,67 @@ To debug this project, you can use the tools available in the [Visual Studio Cod
 #### Style
 
 This project follow the [Prettier](https://prettier.io/) guide lines, besides the [Jest](https://jestjs.io/en/) guide lines, through the [Codacy](https://app.codacy.com/project/Sphinxs/Graph/dashboard).
+
+#### References
+
+<details>
+<summary>GraphQL</summary>
+[GraphQL The Documentary](https://www.youtube.com/watch?v=783ccP__No8&t=8s)
+
+[How to GraphQL](https://www.howtographql.com/)
+
+[GraphQL](https://graphql.org/)
+
+[Apollo GraphQL](https://www.apollographql.com/docs/react/)
+
+[Build a GraphQL Server](https://egghead.io/courses/build-a-graphql-server)
+
+[JSONP](https://www.w3schools.com/js/js_json_jsonp.asp)
+</details>
+
+<details>
+<summary>Express</summary>
+[Express Cheatsheet](https://github.com/azat-co/cheatsheets/tree/master/express4)
+
+[Express API Reference](https://expressjs.com/en/4x/api.html)
+</details>
+
+<details>
+<summary>Yarn</summary>
+[Yarn Cheatsheet](https://devhints.io/yarn)
+
+[Yarn PKG](https://yarnpkg.com/pt-BR/)
+</details>
+
+<details>
+<summary>Sequelize</summary>
+[Sequelize Cheatsheet](https://gawdiseattle.gitbook.io/wdi/12-resources/sequelizecheatsheet)
+
+[Sequelize Documentation](http://docs.sequelizejs.com/)
+</details>
+
+<details>
+<summary>Docker</summary>
+[Docker Cheatsheet](https://github.com/wsargent/docker-cheat-sheet)
+
+[Docker Documentation](https://docs.docker.com/)
+</details>
+
+<details>
+<summary>Docker Compose</summary>
+[Docker Compose Cheatsheet](https://devhints.io/docker-compose)
+
+[Docker Compose Documentation](https://docs.docker.com/compose/)
+</details>
+
+<details>
+<summary>Javascript</summary>
+[Como usar ES6 no Node](https://medium.com/@febatista107/como-usar-es6-no-node-js-cc74d85f6f24)
+
+[Javascript Cheatsheet](https://github.com/mbeaudru/modern-js-cheatsheet)
+
+[Javascript](https://developer.mozilla.org/en-US/docs/Learn/JavaScript)
+</details>
 
 #### Credits
 
