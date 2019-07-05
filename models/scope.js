@@ -7,7 +7,7 @@ export default (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
-      title: {
+      name: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
@@ -20,7 +20,7 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  Scope.associate = (models) => {
+  Scope.associate = models => {
     Scope.belongsToMany(models.user, { through: models.userScope });
   };
 

@@ -16,10 +16,14 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      cpf: DataTypes.STRING,
+      cpf: {
+        type: DataTypes.STRING(11),
+        unique: true
+      },
       gender: DataTypes.CHAR(1),
-      birth: DataTypes.DATE,
-      name: DataTypes.STRING
+      birth: DataTypes.DATEONLY,
+      firstName: DataTypes.STRING,
+      lastName: DataTypes.STRING
     },
     {
       freezeTableName: true

@@ -1,3 +1,9 @@
+# editor
+.vscode
+
+# workbench 
+model.mwb.bak
+
 # logs
 logs
 *.log
