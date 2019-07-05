@@ -34,6 +34,12 @@ export default (sequelize, DataTypes) => {
 
   Class.associate = models => {
     Class.belongsTo(models.course, { foreignKey: "courseId", as: "course" });
+
+    Class.belongsToMany(models.user, {
+      through: models.classUser,
+      foreignKey: "classId",
+      as: "classes"
+    });
   };
 
   return Class;

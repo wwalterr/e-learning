@@ -21,5 +21,12 @@ export default (sequelize, DataTypes) => {
     }
   );
 
+  Progress.associate = models => {
+    Progress.belongsTo(models.classUser, {
+      foreignKey: "classUserId",
+      as: "classUser"
+    });
+  };
+
   return Progress;
 };
