@@ -147,6 +147,12 @@ After create a database and generate the models inside the database, set the dat
 
 #### Debug
 
+To debug this project, you can use the tools available in the [Visual Studio Code](https://code.visualstudio.com/) editor, along with your browser and the [GraphiQL](https://github.com/graphql/graphiql) debug tool.
+
 #### Style
 
+This project follow the [Prettier](https://prettier.io/) guide lines, besides the [Jest](https://jestjs.io/en/) guide lines, through the [Codacy](https://app.codacy.com/project/Sphinxs/Graph/dashboard).
+
 #### Credits
+
+Developed by [Sphinxs](https://github.com/Sphinxs).
