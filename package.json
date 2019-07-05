@@ -1,0 +1,21 @@
+{
+  "name": "Graph",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Sphinxs",
+  "license": "MIT",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.9.2",
+    "sequelize-cli": "^5.5.0"
+  },
+  "scripts": {
+    "start": "babel-node index.js",
+    "db-init": "node_modules/.bin/sequelize init:models; node_modules/.bin/sequelize init:config",
+    "db-sync": "babel-node sync.js"
+  }
+}
