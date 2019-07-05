@@ -30,5 +30,15 @@ export default (sequelize, DataTypes) => {
     }
   );
 
+  User.associate = models => {
+    User.hasMany(models.contact, { as: "contacts" });
+
+    User.belongsToMany(models.scope, {
+      through: models.userScope,
+      foreignKey: "userId",
+      as: "users"
+    });
+  };
+
   return User;
 };

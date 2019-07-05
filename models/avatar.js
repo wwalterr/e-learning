@@ -15,8 +15,14 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false
       },
-      mimetype: DataTypes.STRING(127),
-      size: DataTypes.INTEGER,
+      mimetype: {
+        type: DataTypes.STRING(127),
+        allowNull: false
+      },
+      size: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       userId: {
         type: DataTypes.INTEGER
       }
@@ -27,7 +33,7 @@ export default (sequelize, DataTypes) => {
   );
 
   Avatar.associate = models => {
-    Avatar.belongsTo(models.user, { foreignKey: "userId", as: "user" });
+    Avatar.belongsTo(models.user, { foreignKey: "userId", as: "avatar" });
   };
 
   return Avatar;

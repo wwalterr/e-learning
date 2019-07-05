@@ -21,7 +21,11 @@ export default (sequelize, DataTypes) => {
   );
 
   Scope.associate = models => {
-    Scope.belongsToMany(models.user, { through: models.userScope });
+    Scope.belongsToMany(models.user, {
+      through: models.userScope,
+      foreignKey: "scopeId",
+      as: "scopes"
+    });
   };
 
   return Scope;

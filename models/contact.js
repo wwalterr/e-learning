@@ -8,19 +8,12 @@ export default (sequelize, DataTypes) => {
         autoIncrement: true
       },
       email: DataTypes.STRING,
-      phone: DataTypes.CHAR(15),
-      userId: {
-        type: DataTypes.INTEGER
-      }
+      phone: DataTypes.CHAR(15)
     },
     {
       freezeTableName: true
     }
   );
-
-  Contact.associate = models => {
-    Contact.belongsTo(models.user, { foreignKey: "userId", as: "user" });
-  };
 
   return Contact;
 };
