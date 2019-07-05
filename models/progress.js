@@ -14,6 +14,9 @@ export default (sequelize, DataTypes) => {
       grade: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      classUserId: {
+        type: DataTypes.INTEGER
       }
     },
     {
