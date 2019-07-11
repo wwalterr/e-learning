@@ -171,13 +171,13 @@ To debug this project, you can use the tools available in the [Visual Studio Cod
 
 #### Style
 
-This project follow the [Prettier](https://prettier.io/) guide lines, besides the [Jest](https://jestjs.io/en/) guide lines, through the [Codacy](https://app.codacy.com/project/Sphinxs/Graph/dashboard).
+This project follow the [Prettier](https://prettier.io/) guide lines, besides the [Jest](https://jestjs.io/en/) guide lines, through the [Codacy](https://app.codacy.com/project/Sphinxs/Graph/dashboard) and Visual Studio Code.
 
 #### References
 
 <details>
 <summary>GraphQL</summary>
-[GraphQL The Documentary](https://www.youtube.com/watch?v=783ccP__No8&t=8s)
+[GraphQL The Documentary](https://www.youtube.com/watch?v=783ccP__No8)
 
 [How to GraphQL](https://www.howtographql.com/)
 
