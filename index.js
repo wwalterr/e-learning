@@ -17,7 +17,7 @@ app.use(
         }   
 
         type RootMutation {
-            createEvent(name: String): String
+          createEvent(name: String): String
         }
 
         schema {
@@ -25,7 +25,6 @@ app.use(
                 RootQuery
             mutation:
                 RootMutation
-
         }
     `),
     rootValue: {
@@ -44,5 +43,5 @@ app.use(
 );
 
 app.listen(3000, () => {
-  // console.log("🚀 Server on http://localhost:3000");
+  console.log("🚀 Server on http://localhost:3000");
 });
