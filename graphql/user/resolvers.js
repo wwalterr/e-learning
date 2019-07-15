@@ -14,16 +14,18 @@ module.exports = {
     try {
       const hashedPassword = await bcryptjs.hash(args.userInput.password, 12);
 
-      const user = await db.sequelize.models.user.create({
+      const user = {
         email: args.userInput.email,
         password: hashedPassword,
         cpf: args.userInput.cpf,
         matriculation: args.userInput.matriculation,
         firstName: args.userInput.firstName,
         secondName: args.userInput.secondName
-      });
+      };
 
-      return user;
+      const _user = await db.sequelize.models.user.create(user);
+
+      return Object.assign({}, user, { password: null });
     } catch (error) {
       if (error.hasOwnProperty("errors") && error["errors"].length)
         checkError(error["errors"][0]["type"]);
