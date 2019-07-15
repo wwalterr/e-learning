@@ -17,11 +17,19 @@ module.exports = {
     };
 
     try {
-      await db.sequelize.models.user.create(user);
+      const _user = await db.sequelize.models.user.create(user);
+
+      if (_user.hasOwnProperty("errors") && _users["errors"].length)
+        throw _user["errors"];
 
       return user;
     } catch (error) {
-      throw new Error(errorName.conflict);
+      switch (error["errors"][0]["type"]) {
+        case "unique violation":
+          throw new Error(errorName.conflict);
+        default:
+          throw new Error(errorName.internal);
+      }
     }
   }
 };
