@@ -24,8 +24,6 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING(8),
         unique: true
       },
-      gender: DataTypes.CHAR(1),
-      birth: DataTypes.DATEONLY,
       firstName: DataTypes.STRING,
       lastName: DataTypes.STRING
     },
