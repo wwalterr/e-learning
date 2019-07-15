@@ -1,10 +1,12 @@
-let users = [];
+const db = require("../../models");
+
+const { errorName } = require("../constants");
 
 module.exports = {
   user: () => {
     return users;
   },
-  createUser: args => {
+  createUser: async args => {
     const user = {
       email: args.userInput.email,
       password: args.userInput.password,
@@ -14,8 +16,12 @@ module.exports = {
       secondName: args.userInput.secondName
     };
 
-    users.push(user);
+    try {
+      await db.sequelize.models.user.create(user);
 
-    return user;
+      return user;
+    } catch (error) {
+      throw new Error(errorName.conflict);
+    }
   }
 };

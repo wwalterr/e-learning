@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true
       },
       firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING
+      secondName: DataTypes.STRING
     },
     {
       freezeTableName: true

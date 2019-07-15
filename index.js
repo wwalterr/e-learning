@@ -6,13 +6,24 @@ const app = express();
 
 const graphqlSR = require("./graphql");
 
+const { errorType } = require("./graphql/constants");
+
 app.use(
   "/graphql",
   graphQlHTTP({
     schema: graphqlSR.schema,
     rootValue: graphqlSR.resolvers,
     graphiql: true,
-    pretty: true
+    pretty: true,
+    formatError: error => {
+      _error = errorType[error.message]
+
+      return {
+        message: _error.message,
+        statusCode: _error.statusCode,
+        path: error.path
+      };
+    }
   })
 );
 
