@@ -8,6 +8,8 @@ const graphqlSR = require("./graphql");
 
 const { errorType } = require("./graphql/constants");
 
+// process.env.key-name
+
 app.use(
   "/graphql",
   graphQlHTTP({
@@ -15,13 +17,14 @@ app.use(
     rootValue: graphqlSR.resolvers,
     graphiql: true,
     pretty: true,
-    formatError: error => {
-      _error = errorType[error.message]
+    customFormatErrorFn: error => {
+      _error = errorType[error.message];
 
       return {
         message: _error.message,
         statusCode: _error.statusCode,
         path: error.path
+        // locations: error.locations
       };
     }
   })

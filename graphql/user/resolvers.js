@@ -2,34 +2,33 @@ const db = require("../../models");
 
 const { errorName } = require("../constants");
 
+const bcryptjs = require("bcryptjs");
+
+const { checkError } = require("../utils");
+
 module.exports = {
   user: () => {
-    return users;
+    return [""];
   },
   createUser: async args => {
-    const user = {
-      email: args.userInput.email,
-      password: args.userInput.password,
-      cpf: args.userInput.cpf,
-      matriculation: args.userInput.matriculation,
-      firstName: args.userInput.firstName,
-      secondName: args.userInput.secondName
-    };
-
     try {
-      const _user = await db.sequelize.models.user.create(user);
+      const hashedPassword = await bcryptjs.hash(args.userInput.password, 12);
 
-      if (_user.hasOwnProperty("errors") && _users["errors"].length)
-        throw _user["errors"];
+      const user = await db.sequelize.models.user.create({
+        email: args.userInput.email,
+        password: hashedPassword,
+        cpf: args.userInput.cpf,
+        matriculation: args.userInput.matriculation,
+        firstName: args.userInput.firstName,
+        secondName: args.userInput.secondName
+      });
 
       return user;
     } catch (error) {
-      switch (error["errors"][0]["type"]) {
-        case "unique violation":
-          throw new Error(errorName.conflict);
-        default:
-          throw new Error(errorName.internal);
-      }
+      if (error.hasOwnProperty("errors") && error["errors"].length)
+        checkError(error["errors"][0]["type"]);
+
+      throw new Error(errorName.internal);
     }
   }
 };

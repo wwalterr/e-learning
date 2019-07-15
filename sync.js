@@ -1,10 +1,13 @@
 const db = require("./models");
 
-db.sequelize
-  .sync()
-  .then(response => {
-    console.log(response);
-  })
-  .catch(error => {
+const syncDb = async () => {
+  try {
+    await db.sequelize.sync();
+  } catch (error) {
     console.log(error);
-  });
+  }
+};
+
+syncDb();
+
+module.exports.syncDb = syncDb;
