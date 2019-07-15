@@ -5,10 +5,6 @@
   "author": "Sphinxs",
   "license": "MIT",
   "dependencies": {
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-3": "^6.24.1",
     "express": "^4.17.1",
     "express-graphql": "^0.8.0",
     "graphql": "^14.4.2",
@@ -19,7 +15,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "db-init": "node_modules/.bin/sequelize init:models; node_modules/.bin/sequelize init:config",
-    "db-sync": "babel-node sync.js"
+    "db-sync": "node sync.js"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
