@@ -1,0 +1,30 @@
+// Schema
+const { buildSchema } = require("graphql");
+
+const userSchema = require("./user/schema");
+
+module.exports.schema = buildSchema(`
+    ${userSchema}
+
+    type RootQuery {
+        user: [User!]!
+    }   
+
+    type RootMutation {
+        createUser(userInput: UserInput): User
+    }
+
+    schema {
+        query:
+            RootQuery
+        mutation:
+            RootMutation
+    }
+`);
+
+// Resolvers
+const userResolvers = require("./user/resolvers");
+
+module.exports.resolvers = {
+  ...userResolvers
+};

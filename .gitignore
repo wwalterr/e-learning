@@ -29,6 +29,3 @@ jspm_packages/
 # dotenv environment variables file
 .env
 .env.test
-
-# to-do
-to-do.txt
