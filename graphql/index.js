@@ -12,6 +12,7 @@ module.exports.schema = buildSchema(`
 
     type RootMutation {
         createUser(userInput: UserInput): User
+        removeUser(id: Int): String
     }
 
     schema {

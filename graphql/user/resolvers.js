@@ -46,7 +46,22 @@ const createUser = async args => {
   }
 };
 
+const removeUser = async args => {
+  try {
+    const userRemoved = await db.user.destroy({ where: { id: args.id } });
+
+    if (userRemoved) return "user removed";
+
+    return "user not removed";
+  } catch (error) {
+    console.log(error);
+
+    checkError(error);
+  }
+};
+
 module.exports = {
   searchUser,
-  createUser
+  createUser,
+  removeUser
 };
