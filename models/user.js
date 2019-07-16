@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       matriculation: {
         type: DataTypes.STRING(8),
-        unique: true
+        unique: true,
+        allowNull: false
       },
       firstName: DataTypes.STRING,
       secondName: DataTypes.STRING

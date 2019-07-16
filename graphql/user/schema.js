@@ -5,8 +5,10 @@ module.exports = `
         password: String
         cpf: String
         matriculation: String!
-        firstName: String!
-        secondName: String!
+        firstName: String
+        secondName: String
+        createdAt: String
+        updatedAt: String
     }
 
     input UserInput {
@@ -14,7 +16,7 @@ module.exports = `
         password: String!
         cpf: String
         matriculation: String!
-        firstName: String!
-        secondName: String!
+        firstName: String
+        secondName: String
     }
 `;

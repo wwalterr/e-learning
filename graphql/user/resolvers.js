@@ -7,8 +7,14 @@ const bcryptjs = require("bcryptjs");
 const { checkError } = require("../utils");
 
 module.exports = {
-  user: () => {
-    return [""];
+  searchUser: async args => {
+    try {
+      const user = await db.user.findOne({ where: { id: args.id } });
+
+      return Object.assign({}, user.dataValues, { password: null, id: null });
+    } catch (error) {
+      return null;
+    }
   },
   createUser: async args => {
     try {
@@ -23,12 +29,15 @@ module.exports = {
         secondName: args.userInput.secondName
       };
 
-      const _user = await db.sequelize.models.user.create(user);
+      await db.user.create(user);
 
       return Object.assign({}, user, { password: null });
     } catch (error) {
-      if (error.hasOwnProperty("errors") && error["errors"].length)
-        checkError(error["errors"][0]["type"]);
+      if (error.hasOwnProperty("errors") && error["errors"].length) {
+        console.log(error.errors[0].message);
+
+        checkError(error.errors[0].type);
+      }
 
       throw new Error(errorName.internal);
     }
