@@ -1,6 +1,7 @@
 module.exports.errorName = {
   conflict: "conflict",
-  internal: "internal"
+  internal: "internal",
+  notFound: "notFound"
 };
 
 module.exports.errorType = {
@@ -11,5 +12,9 @@ module.exports.errorType = {
   internal: {
     message: "internal error, something unexpected happened",
     statusCode: 500
+  },
+  notFound: {
+    message: "resource not found",
+    statusCode: 404
   }
 };
