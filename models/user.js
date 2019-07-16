@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       firstName: DataTypes.STRING,
       secondName: DataTypes.STRING,
-      creator: type: DataTypes.INTEGER
+      creator: DataTypes.INTEGER
     },
     {
       freezeTableName: true

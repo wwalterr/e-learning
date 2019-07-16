@@ -11,7 +11,7 @@ module.exports = {
     try {
       const user = await db.user.findOne({ where: { id: args.id } });
 
-      return Object.assign({}, user.dataValues, { password: null, id: null });
+      return Object.assign({}, user.dataValues, { password: null });
     } catch (error) {
       return null;
     }
@@ -26,7 +26,8 @@ module.exports = {
         cpf: args.userInput.cpf,
         matriculation: args.userInput.matriculation,
         firstName: args.userInput.firstName,
-        secondName: args.userInput.secondName
+        secondName: args.userInput.secondName,
+        creator: args.userInput.creator
       };
 
       await db.user.create(user);

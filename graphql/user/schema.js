@@ -9,6 +9,7 @@ module.exports = `
         secondName: String
         createdAt: String
         updatedAt: String
+        creator: Int
     }
 
     input UserInput {
@@ -18,5 +19,6 @@ module.exports = `
         matriculation: String!
         firstName: String
         secondName: String
+        creator: Int!
     }
 `;
