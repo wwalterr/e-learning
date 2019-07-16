@@ -48,7 +48,10 @@ const createUser = async args => {
 
 const removeUser = async args => {
   try {
-    const userRemoved = await db.user.destroy({ where: { id: args.id } });
+    const userRemoved = await db.user.destroy({
+      where: { id: args.id },
+      limit: 1
+    });
 
     if (userRemoved) return "user removed";
 
@@ -56,12 +59,42 @@ const removeUser = async args => {
   } catch (error) {
     console.log(error);
 
-    checkError(error);
+    checkError("not found");
+  }
+};
+
+const updateUser = async args => {
+  try {
+    const user = await db.user.findOne({
+      where: { id: args.userUpdateInput.id }
+    });
+
+    delete args.userUpdateInput.id;
+
+    if ({ ...args.userUpdateInput }.hasOwnProperty("password")) {
+      const hashedPassword = await bcryptjs.hash(
+        args.userUpdateInput.password,
+        12
+      );
+
+      args.userUpdateInput.password = hashedPassword;
+    }
+
+    const userUpdated = await user.update({ ...args.userUpdateInput });
+
+    if (Object.keys(userUpdated._changed).length) return "user updated";
+
+    return "user not updated";
+  } catch (error) {
+    console.log(error);
+
+    checkError("not found");
   }
 };
 
 module.exports = {
   searchUser,
   createUser,
-  removeUser
+  removeUser,
+  updateUser
 };

@@ -21,4 +21,14 @@ module.exports = `
         secondName: String
         creator: Int!
     }
+    
+    input UserUpdateInput {
+        id: Int!
+        email: String
+        password: String
+        cpf: String
+        matriculation: String
+        firstName: String
+        secondName: String
+    }
 `;
