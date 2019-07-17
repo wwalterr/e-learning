@@ -1,0 +1,7 @@
+{
+  "env": {
+    "jwtKey": "aw&$om&-k&y",
+    "jwtExpiration": "1h",
+    "jwtExpirationInt": 1
+  }
+}

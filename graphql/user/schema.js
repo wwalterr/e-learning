@@ -36,4 +36,10 @@ module.exports = `
         firstName: String
         secondName: String
     }
+
+    type Token {
+        userId: Int!
+        token: String!
+        tokenExpiration: Int!
+    }
 `;

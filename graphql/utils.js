@@ -14,6 +14,10 @@ const checkError = errorType => {
       throw new Error(errorName.badRequest);
       break;
 
+    case "unauthorized":
+      throw new Error(errorName.unauthorized);
+      break;
+
     default:
       throw new Error(errorName.internal);
   }

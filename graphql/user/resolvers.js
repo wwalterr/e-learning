@@ -6,6 +6,8 @@ const { userHelper, checkEmptyPassword, transformUser } = require("./utils");
 
 const { checkError, objectFilter } = require("../utils");
 
+const jwt = require("jsonwebtoken");
+
 const searchUser = async args => {
   try {
     const user = await userHelper({ where: { id: args.id } });
@@ -159,10 +161,51 @@ const listUsers = async args => {
   }
 };
 
+const login = async args => {
+  try {
+    const user = await db.user.findOne({ where: { email: args.email } });
+
+    if (!user) {
+      throw "not found";
+    }
+
+    const isEqual = await bcryptjs.compare(
+      args.password,
+      user.dataValues.password
+    );
+
+    if (!isEqual) {
+      throw "unauthorized";
+    }
+
+    // The first argument is the data stored in the token,
+    // that can later be retrieved. Not required
+    //
+    // The second argument its used to hash the and validate
+    // the token
+    //
+    // The third argument define the token expiration
+    const token = jwt.sign({ userId: user.id }, process.env.jwtKey, {
+      expiresIn: process.env.jwtExpiration
+    });
+
+    return {
+      userId: user.id,
+      token: token,
+      tokenExpiration: process.env.jwtExpirationInt
+    };
+  } catch (error) {
+    console.log(error);
+
+    checkError(error);
+  }
+};
+
 module.exports = {
   searchUser,
   createUser,
   removeUser,
   updateUser,
-  listUsers
+  listUsers,
+  login
 };

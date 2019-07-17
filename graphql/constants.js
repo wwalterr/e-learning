@@ -2,7 +2,8 @@ const errorName = {
   conflict: "conflict",
   internal: "internal",
   notFound: "notFound",
-  badRequest: "badRequest"
+  badRequest: "badRequest",
+  unauthorized: "unauthorized"
 };
 
 const errorType = {
@@ -19,8 +20,13 @@ const errorType = {
     statusCode: 404
   },
   badRequest: {
-    message: "the server couldn't process the request, check a precondition or the access level",
+    message:
+      "the server couldn't process the request, check a precondition or the access level",
     statusCode: 400
+  },
+  unauthorized: {
+    message: "unauthorized, the authentication credentials are not valid ",
+    statusCode: 401
   }
 };
 

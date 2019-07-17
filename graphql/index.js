@@ -9,6 +9,7 @@ module.exports.schema = buildSchema(`
     type RootQuery {
         searchUser(id: Int): User!
         listUsers(creator: Int): [User!]
+        login(email: String!, password: String!): Token!
     }   
 
     type RootMutation {
