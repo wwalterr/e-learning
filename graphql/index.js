@@ -8,6 +8,7 @@ module.exports.schema = buildSchema(`
 
     type RootQuery {
         searchUser(id: Int): User
+        listUsers(creator: Int): [User!]
     }   
 
     type RootMutation {

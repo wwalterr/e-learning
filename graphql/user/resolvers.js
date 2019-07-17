@@ -122,9 +122,33 @@ const updateUser = async args => {
   }
 };
 
+const listUsers = async args => {
+  try {
+    const users = await db.user.findAll({
+      where: {
+        creator: args.creator,
+        id: { [db.Sequelize.Op.notIn]: [args.creator] }
+      }
+    });
+
+    if (users) {
+      return users.map(user =>
+        Object.assign({}, user.dataValues, { password: null, creator: null })
+      );
+    }
+
+    throw "not found";
+  } catch (error) {
+    console.log(error);
+
+    checkError(error);
+  }
+};
+
 module.exports = {
   searchUser,
   createUser,
   removeUser,
-  updateUser
+  updateUser,
+  listUsers
 };
