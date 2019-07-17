@@ -11,9 +11,9 @@ module.exports.schema = buildSchema(`
     }   
 
     type RootMutation {
-        createUser(userInput: UserInput): User
+        createUser(params: UserInput): User
         removeUser(id: Int): String
-        updateUser(userUpdateInput: UserUpdateInput): String
+        updateUser(params: UserUpdateInput): User
     }
 
     schema {

@@ -4,7 +4,7 @@ module.exports = `
         email: String!
         password: String
         cpf: String
-        matriculation: String!
+        matriculation: String
         firstName: String
         secondName: String
         createdAt: String

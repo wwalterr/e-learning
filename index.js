@@ -8,8 +8,6 @@ const graphqlSR = require("./graphql");
 
 const { errorType } = require("./graphql/constants");
 
-// process.env.key-name
-
 app.use(
   "/graphql",
   graphQlHTTP({
@@ -23,8 +21,8 @@ app.use(
       return {
         message: _error.message,
         statusCode: _error.statusCode,
-        path: error.path
-        // locations: error.locations
+        path: error.path,
+        locations: error.locations
       };
     }
   })
@@ -35,5 +33,4 @@ app.get("/", (req, res) => {
 });
 
 app.listen(3000, () => {
-  // console.log("🚀 Server on http://localhost:3000");
 });

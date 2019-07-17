@@ -1,17 +1,24 @@
 const db = require("./models");
 
 const bcryptjs = require("bcryptjs");
+
 const syncDb = async () => {
   try {
     await db.sequelize.sync();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-    const hashedPassword = await bcryptjs.hash("!-", 12);
+const generateAdmin = async () => {
+  try {
+    const hashedPassword = await bcryptjs.hash("000000", 12);
 
     db.user.create({
       email: "admin@gmail.com",
       password: hashedPassword,
-      cpf: "00000000000",
-      matriculation: "1111",
+      cpf: "11111111111",
+      matriculation: "2222",
       firstName: "Admin",
       secondName: "",
       creator: 1
@@ -23,4 +30,6 @@ const syncDb = async () => {
 
 syncDb();
 
-module.exports.syncDb = syncDb;
+setTimeout(() => {
+  generateAdmin();
+}, 1000);

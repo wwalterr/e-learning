@@ -1,6 +1,6 @@
 {
   "name": "Graph",
-  "version": "1.0.0",
+  "version": "1.5.0",
   "main": "index.js",
   "author": "Sphinxs",
   "license": "MIT",
@@ -15,8 +15,7 @@
   },
   "scripts": {
     "start": "nodemon index.js",
-    "db-init": "node_modules/.bin/sequelize init:models; node_modules/.bin/sequelize init:config",
-    "db-sync": "node sync.js"
+    "sync": "node sync.js"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
