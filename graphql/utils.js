@@ -43,9 +43,14 @@ const createdAtUpdatedAt = args => {
   return { createdAt: "", updatedAt: "" };
 };
 
+const objectFilter = (args, filter) => {
+  return Object.assign({}, args, filter);
+};
+
 module.exports = {
   checkError,
   checkEmptyPassword,
   formatDate,
-  createdAtUpdatedAt
+  createdAtUpdatedAt,
+  objectFilter
 };

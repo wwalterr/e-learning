@@ -5,18 +5,33 @@ const bcryptjs = require("bcryptjs");
 const {
   checkError,
   checkEmptyPassword,
-  createdAtUpdatedAt
+  createdAtUpdatedAt,
+  objectFilter
 } = require("../utils");
+
+const userHelper = async (query, raw = false, attribute = "dataValues") => {
+  try {
+    const user = await db.user.findOne(query);
+
+    if (raw) return user;
+
+    return user[attribute];
+  } catch (error) {
+    console.log(error);
+
+    return null;
+  }
+};
 
 const searchUser = async args => {
   try {
-    const user = await db.user.findOne({ where: { id: args.id } });
+    const user = await userHelper({ where: { id: args.id } });
 
     if (user) {
-      return Object.assign({}, user.dataValues, {
+      return objectFilter(user, {
         password: null,
         creator: null,
-        ...createdAtUpdatedAt(user.dataValues)
+        ...createdAtUpdatedAt(user)
       });
     }
 
@@ -30,9 +45,7 @@ const searchUser = async args => {
 
 const createUser = async args => {
   try {
-    const _user = await db.user.findOne({
-      where: { id: args.params.creator }
-    });
+    const _user = await userHelper({ where: { id: args.params.creator } });
 
     if (!_user) throw "not found";
   } catch (error) {
@@ -95,9 +108,12 @@ const removeUser = async args => {
 
 const updateUser = async args => {
   try {
-    const user = await db.user.findOne({
-      where: { id: args.params.id }
-    });
+    const user = await userHelper(
+      {
+        where: { id: args.params.id }
+      },
+      true
+    );
 
     if (!user) {
       throw "not found";
