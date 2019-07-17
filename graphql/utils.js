@@ -28,7 +28,24 @@ const checkEmptyPassword = password => {
   return false;
 };
 
+const formatDate = date => {
+  return new Date(date).toISOString();
+};
+
+const createdAtUpdatedAt = args => {
+  if ("createdAt" in args && "updatedAt" in args) {
+    return {
+      createdAt: formatDate(args.createdAt),
+      updatedAt: formatDate(args.updatedAt)
+    };
+  }
+
+  return { createdAt: "", updatedAt: "" };
+};
+
 module.exports = {
   checkError,
-  checkEmptyPassword
+  checkEmptyPassword,
+  formatDate,
+  createdAtUpdatedAt
 };

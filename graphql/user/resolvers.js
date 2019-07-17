@@ -2,7 +2,11 @@ const db = require("../../models");
 
 const bcryptjs = require("bcryptjs");
 
-const { checkError, checkEmptyPassword } = require("../utils");
+const {
+  checkError,
+  checkEmptyPassword,
+  createdAtUpdatedAt
+} = require("../utils");
 
 const searchUser = async args => {
   try {
@@ -11,7 +15,8 @@ const searchUser = async args => {
     if (user) {
       return Object.assign({}, user.dataValues, {
         password: null,
-        creator: null
+        creator: null,
+        ...createdAtUpdatedAt(user.dataValues)
       });
     }
 
@@ -61,7 +66,8 @@ const createUser = async args => {
 
     return Object.assign({}, userCreated.dataValues, {
       password: null,
-      creator: null
+      creator: null,
+      ...createdAtUpdatedAt(userCreated.dataValues)
     });
   } catch (error) {
     console.log(error);
@@ -112,7 +118,8 @@ const updateUser = async args => {
     if (Object.keys(userUpdated._changed).length) {
       return Object.assign({}, userUpdated.dataValues, {
         password: null,
-        creator: null
+        creator: null,
+        ...createdAtUpdatedAt(userUpdated.dataValues)
       });
     }
   } catch (error) {
@@ -133,7 +140,11 @@ const listUsers = async args => {
 
     if (users) {
       return users.map(user =>
-        Object.assign({}, user.dataValues, { password: null, creator: null })
+        Object.assign({}, user.dataValues, {
+          password: null,
+          creator: null,
+          ...createdAtUpdatedAt(user.dataValues)
+        })
       );
     }
 
