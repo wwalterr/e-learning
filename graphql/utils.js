@@ -19,12 +19,6 @@ const checkError = errorType => {
   }
 };
 
-const checkEmptyPassword = password => {
-  if (password === "") return true;
-
-  return false;
-};
-
 const formatDate = date => {
   return new Date(date).toISOString();
 };
@@ -48,7 +42,6 @@ const objectFilter = (args, filter) => {
 
 module.exports = {
   checkError,
-  checkEmptyPassword,
   formatDate,
   createdAtUpdatedAt,
   objectFilter

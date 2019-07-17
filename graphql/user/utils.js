@@ -1,5 +1,7 @@
 const db = require("../../models");
 
+const { createdAtUpdatedAt } = require("../utils");
+
 const userHelper = async (query, raw = false, attribute = "dataValues") => {
   try {
     const user = await db.user.findOne(query);
@@ -14,6 +16,22 @@ const userHelper = async (query, raw = false, attribute = "dataValues") => {
   }
 };
 
+const checkEmptyPassword = password => {
+  if (password === "") return true;
+
+  return false;
+};
+
+const transformUser = (user, creator) => {
+  return {
+    password: null,
+    creator,
+    ...createdAtUpdatedAt(user)
+  };
+};
+
 module.exports = {
-  userHelper
+  userHelper,
+  checkEmptyPassword,
+  transformUser
 };

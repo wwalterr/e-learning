@@ -2,14 +2,9 @@ const db = require("../../models");
 
 const bcryptjs = require("bcryptjs");
 
-const { userHelper } = require("./utils");
+const { userHelper, checkEmptyPassword, transformUser } = require("./utils");
 
-const {
-  checkError,
-  checkEmptyPassword,
-  createdAtUpdatedAt,
-  objectFilter
-} = require("../utils");
+const { checkError, objectFilter } = require("../utils");
 
 const searchUser = async args => {
   try {
@@ -18,11 +13,7 @@ const searchUser = async args => {
     if (user) {
       const creator = await userHelper({ where: { id: user.creator } });
 
-      return objectFilter(user, {
-        password: null,
-        creator,
-        ...createdAtUpdatedAt(user)
-      });
+      return objectFilter(user, transformUser(user, creator));
     }
 
     throw "not found";
@@ -71,11 +62,7 @@ const createUser = async args => {
       where: { id: userCreated.dataValues.creator }
     });
 
-    return objectFilter(userCreated.dataValues, {
-      password: null,
-      creator,
-      ...createdAtUpdatedAt(user)
-    });
+    return objectFilter(userCreated.dataValues, transformUser(user, creator));
   } catch (error) {
     console.log(error);
 
@@ -130,11 +117,10 @@ const updateUser = async args => {
         where: { id: userUpdated.dataValues.creator }
       });
 
-      return objectFilter(userUpdated.dataValues, {
-        password: null,
-        creator,
-        ...createdAtUpdatedAt(userUpdated.dataValues)
-      });
+      return objectFilter(
+        userUpdated.dataValues,
+        transformUser(userUpdated.dataValues, creator)
+      );
     }
   } catch (error) {
     console.log(error);
@@ -158,11 +144,10 @@ const listUsers = async args => {
       });
 
       return users.map(user => {
-        return objectFilter(user.dataValues, {
-          password: null,
-          creator,
-          ...createdAtUpdatedAt(user.dataValues)
-        });
+        return objectFilter(
+          user.dataValues,
+          transformUser(user.dataValues, creator)
+        );
       });
     }
 
