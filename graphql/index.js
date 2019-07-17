@@ -7,14 +7,14 @@ module.exports.schema = buildSchema(`
     ${userSchema}
 
     type RootQuery {
-        searchUser(id: Int): User
+        searchUser(id: Int): User!
         listUsers(creator: Int): [User!]
     }   
 
     type RootMutation {
-        createUser(params: UserInput): User
-        removeUser(id: Int): String
-        updateUser(params: UserUpdateInput): User
+        createUser(params: UserInput): User!
+        removeUser(id: Int): String!
+        updateUser(params: UserUpdateInput): User!
     }
 
     schema {

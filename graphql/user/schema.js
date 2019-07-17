@@ -1,7 +1,13 @@
 module.exports = `
+    type Creator {
+        id: Int!
+        email: String
+        matriculation: String
+    }
+
     type User {
         id: Int
-        email: String!
+        email: String
         password: String
         cpf: String
         matriculation: String
@@ -9,7 +15,7 @@ module.exports = `
         secondName: String
         createdAt: String
         updatedAt: String
-        creator: Int
+        creator: Creator
     }
 
     input UserInput {
@@ -24,7 +30,6 @@ module.exports = `
     
     input UserUpdateInput {
         id: Int!
-        email: String
         password: String
         cpf: String
         matriculation: String

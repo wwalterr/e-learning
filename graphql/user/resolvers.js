@@ -28,9 +28,11 @@ const searchUser = async args => {
     const user = await userHelper({ where: { id: args.id } });
 
     if (user) {
+      const creator = await userHelper({ where: { id: user.creator } });
+
       return objectFilter(user, {
         password: null,
-        creator: null,
+        creator,
         ...createdAtUpdatedAt(user)
       });
     }
@@ -45,9 +47,9 @@ const searchUser = async args => {
 
 const createUser = async args => {
   try {
-    const _user = await userHelper({ where: { id: args.params.creator } });
+    const user = await userHelper({ where: { id: args.params.creator } });
 
-    if (!_user) throw "not found";
+    if (!user) throw "not found";
   } catch (error) {
     console.log(error);
 
@@ -77,10 +79,14 @@ const createUser = async args => {
       throw "unique violation";
     }
 
-    return Object.assign({}, userCreated.dataValues, {
+    const creator = await userHelper({
+      where: { id: userCreated.dataValues.creator }
+    });
+
+    return objectFilter(userCreated.dataValues, {
       password: null,
-      creator: null,
-      ...createdAtUpdatedAt(userCreated.dataValues)
+      creator,
+      ...createdAtUpdatedAt(user)
     });
   } catch (error) {
     console.log(error);
@@ -132,9 +138,13 @@ const updateUser = async args => {
     const userUpdated = await user.update({ ...args.params });
 
     if (Object.keys(userUpdated._changed).length) {
-      return Object.assign({}, userUpdated.dataValues, {
+      const creator = await userHelper({
+        where: { id: userUpdated.dataValues.creator }
+      });
+
+      return objectFilter(userUpdated.dataValues, {
         password: null,
-        creator: null,
+        creator,
         ...createdAtUpdatedAt(userUpdated.dataValues)
       });
     }
@@ -155,13 +165,17 @@ const listUsers = async args => {
     });
 
     if (users) {
-      return users.map(user =>
-        Object.assign({}, user.dataValues, {
+      const creator = await userHelper({
+        where: { id: args.creator }
+      });
+
+      return users.map(user => {
+        return objectFilter(user.dataValues, {
           password: null,
-          creator: null,
+          creator,
           ...createdAtUpdatedAt(user.dataValues)
-        })
-      );
+        });
+      });
     }
 
     throw "not found";

@@ -4,17 +4,14 @@ const checkError = errorType => {
   switch (errorType) {
     case "unique violation":
       throw new Error(errorName.conflict);
-
       break;
 
     case "not found":
       throw new Error(errorName.notFound);
-
       break;
 
     case "bad request":
       throw new Error(errorName.badRequest);
-
       break;
 
     default:
@@ -44,6 +41,8 @@ const createdAtUpdatedAt = args => {
 };
 
 const objectFilter = (args, filter) => {
+  if (!Object.keys(args).length) return {};
+
   return Object.assign({}, args, filter);
 };
 
