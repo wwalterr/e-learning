@@ -2,26 +2,14 @@ const db = require("../../models");
 
 const bcryptjs = require("bcryptjs");
 
+const { userHelper } = require("./utils");
+
 const {
   checkError,
   checkEmptyPassword,
   createdAtUpdatedAt,
   objectFilter
 } = require("../utils");
-
-const userHelper = async (query, raw = false, attribute = "dataValues") => {
-  try {
-    const user = await db.user.findOne(query);
-
-    if (raw) return user;
-
-    return user[attribute];
-  } catch (error) {
-    console.log(error);
-
-    return null;
-  }
-};
 
 const searchUser = async args => {
   try {

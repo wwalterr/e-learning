@@ -107,6 +107,28 @@ $ yarn start
 Open the [localhost:3000](http://localhost:3000) URL in the browser.
 </details>
 
+#### Collections
+
+To manage the [collections](./collections/insomnia.json) its necessary to install the Insomnia request manager.
+
+<details>
+<summary>Snap</summary>
+Install the Snap:
+
+```sh
+$ sudo apt install snapd
+```
+</details>
+
+<details>
+<summary>Insomnia</summary>
+Install the Insomnia:
+
+```sh
+$ snap install insomnia
+```
+</details>
+
 #### Debug
 
 To debug this project, you can use the [Visual Studio Code](https://code.visualstudio.com/) and [GraphiQL](https://github.com/graphql/graphiql).
