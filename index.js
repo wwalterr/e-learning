@@ -8,6 +8,10 @@ const graphqlSR = require("./graphql");
 
 const { errorType } = require("./graphql/constants");
 
+const { auth } = require("./middleware/auth");
+
+app.use(auth);
+
 app.use(
   "/graphql",
   graphQlHTTP({
@@ -32,5 +36,4 @@ app.get("/", (req, res) => {
   return res.redirect("/graphql");
 });
 
-app.listen(3000, () => {
-});
+app.listen(3000, () => {});
