@@ -6,9 +6,13 @@ const userHelper = async (query, raw = false, attribute = "dataValues") => {
   try {
     const user = await db.user.findOne(query);
 
-    if (raw) return user;
+    if (raw) {
+      return user;
+    }
 
-    return user[attribute];
+    const _attribute = user[attribute];
+
+    return _attribute;
   } catch (error) {
     console.log(error);
 

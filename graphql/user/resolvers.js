@@ -12,13 +12,13 @@ const searchUser = async args => {
   try {
     const user = await userHelper({ where: { id: args.id } });
 
-    if (user) {
-      const creator = await userHelper({ where: { id: user.creator } });
-
-      return objectFilter(user, transformUser(user, creator));
+    if (!user) {
+      throw "not found";
     }
 
-    throw "not found";
+    const creator = await userHelper({ where: { id: user.creator } });
+
+    return objectFilter(user, transformUser(user, creator));
   } catch (error) {
     console.log(error);
 
@@ -40,7 +40,9 @@ const createUser = async args => {
   }
 
   try {
-    if (checkEmptyPassword(args.params.password)) throw "bad request";
+    if (checkEmptyPassword(args.params.password)) {
+      throw "bad request";
+    }
 
     const hashedPassword = await bcryptjs.hash(args.params.password, 12);
 
@@ -81,11 +83,11 @@ const removeUser = async args => {
       limit: 1
     });
 
-    if (userRemoved) {
-      return "user removed";
+    if (!userRemoved) {
+      throw "not found";
     }
 
-    throw "not found";
+    return "user removed";
   } catch (error) {
     console.log(error);
 
@@ -146,20 +148,20 @@ const listUsers = async args => {
       }
     });
 
-    if (users) {
-      const creator = await userHelper({
-        where: { id: args.creator }
-      });
-
-      return users.map(user => {
-        return objectFilter(
-          user.dataValues,
-          transformUser(user.dataValues, creator)
-        );
-      });
+    if (!users.length) {
+      throw "not found";
     }
 
-    throw "not found";
+    const creator = await userHelper({
+      where: { id: args.creator }
+    });
+
+    return users.map(user => {
+      return objectFilter(
+        user.dataValues,
+        transformUser(user.dataValues, creator)
+      );
+    });
   } catch (error) {
     console.log(error);
 
