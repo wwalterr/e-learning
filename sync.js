@@ -7,6 +7,8 @@ const syncDb = async () => {
     await db.sequelize.sync();
   } catch (error) {
     console.log(error);
+
+    throw error;
   }
 };
 

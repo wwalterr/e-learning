@@ -20,7 +20,7 @@ app.use(
     graphiql: true,
     pretty: true,
     customFormatErrorFn: error => {
-      _error = errorType[error.message];
+      let _error = errorType[error.message];
 
       return {
         message: _error.message,

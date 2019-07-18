@@ -17,7 +17,9 @@ const userHelper = async (query, raw = false, attribute = "dataValues") => {
 };
 
 const checkEmptyPassword = password => {
-  if (password === "") return true;
+  if (password === "") {
+    return true;
+  }
 
   return false;
 };

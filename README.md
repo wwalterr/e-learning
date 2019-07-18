@@ -17,15 +17,15 @@ This tutorial assumes you're using Linux.
 Configure the repository:
 
 ```sh
-$ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-$
-$ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 ```
 
 Install the Yarn:
 
 ```sh
-$ sudo apt-get update && sudo apt-get install yarn
+sudo apt-get update && sudo apt-get install yarn
 ```
 </details>
 
@@ -34,13 +34,13 @@ $ sudo apt-get update && sudo apt-get install yarn
 Install the Docker container:
 
 ```sh
-$ sudo apt install docker.io
+sudo apt install docker.io
 ```
 
 Add the Docker to the system group:
 
 ```sh
-$ sudo groupadd docker
+sudo groupadd docker
 ```
 </details>
 
@@ -49,7 +49,7 @@ $ sudo groupadd docker
 Install the Docker Compose:
 
 ```sh
-$ sudo apt install docker-compose
+sudo apt install docker-compose
 ```
 </details>
 
@@ -58,7 +58,7 @@ $ sudo apt install docker-compose
 Install the MySQL image, through [Docker Hub](https://hub.docker.com/), and create a container:
 
 ```sh
-$ docker-compose -f docker-compose.yml up
+docker-compose -f docker-compose.yml up
 ```
 
 <details>
@@ -66,7 +66,7 @@ $ docker-compose -f docker-compose.yml up
 Enter inside the container MySQL CLI:
 
 ```sh
-$ docker exec -it database mysql -u root -p
+docker exec -it database mysql -u root -p
 ```
 
 Create a database, through the MySQL CLI, if it wasn't generated when the container was created:
@@ -78,7 +78,7 @@ mysql> CREATE DATABASE graph;
 Generate the application' models in the database created above, through the Shell:
 
 ```sh
-$ yarn sync
+yarn sync
 ```
 </details>
 
@@ -92,7 +92,7 @@ After create a database and generate the application' models, set the database c
 Install the dependencies:
 
 ```sh
-$ yarn install
+yarn install
 ```
 </details>
 
@@ -101,7 +101,7 @@ $ yarn install
 Start the application:
 
 ```sh
-$ yarn start
+yarn start
 ```
 
 Open the [localhost:3000](http://localhost:3000) URL in the browser.
@@ -116,7 +116,7 @@ To manage the [collections](./collections/insomnia.json) its necessary to instal
 Install the Snap:
 
 ```sh
-$ sudo apt install snapd
+sudo apt install snapd
 ```
 </details>
 
@@ -125,7 +125,7 @@ $ sudo apt install snapd
 Install the Insomnia:
 
 ```sh
-$ snap install insomnia
+snap install insomnia
 ```
 </details>
 

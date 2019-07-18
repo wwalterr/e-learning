@@ -30,7 +30,9 @@ const createUser = async args => {
   try {
     const user = await userHelper({ where: { id: args.params.creator } });
 
-    if (!user) throw "not found";
+    if (!user) {
+      throw "not found";
+    }
   } catch (error) {
     console.log(error);
 
@@ -79,7 +81,9 @@ const removeUser = async args => {
       limit: 1
     });
 
-    if (userRemoved) return "user removed";
+    if (userRemoved) {
+      return "user removed";
+    }
 
     throw "not found";
   } catch (error) {
@@ -105,7 +109,9 @@ const updateUser = async args => {
     delete args.params.id;
 
     if ({ ...args.params }.hasOwnProperty("password")) {
-      if (checkEmptyPassword(args.params.password)) throw "bad request";
+      if (checkEmptyPassword(args.params.password)) {
+        throw "bad request";
+      }
 
       const hashedPassword = await bcryptjs.hash(args.params.password, 12);
 
@@ -191,7 +197,7 @@ const login = async args => {
 
     return {
       userId: user.id,
-      token: token,
+      token,
       tokenExpiration: process.env.jwtExpirationInt
     };
   } catch (error) {
