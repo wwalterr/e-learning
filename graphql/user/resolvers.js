@@ -2,7 +2,7 @@ const db = require("../../models");
 
 const bcryptjs = require("bcryptjs");
 
-const { userHelper, checkEmptyPassword, transformUser } = require("./utils");
+const { userHelper, checkEmptyPassword, transformUser, checkEmail } = require("./utils");
 
 const { checkError, objectFilter } = require("../utils");
 
@@ -41,6 +41,10 @@ const createUser = async args => {
 
   try {
     if (checkEmptyPassword(args.params.password)) {
+      throw "bad request";
+    }
+
+    if(!checkEmail(args.params.email)) {
       throw "bad request";
     }
 
@@ -171,6 +175,10 @@ const listUsers = async args => {
 
 const login = async args => {
   try {
+    if(!checkEmail(args.email)) {
+      throw "bad request";
+    }
+
     const user = await db.user.findOne({ where: { email: args.email } });
 
     if (!user) {

@@ -20,8 +20,7 @@ const errorType = {
     statusCode: 404
   },
   badRequest: {
-    message:
-      "the server couldn't process the request, check a precondition or the access level",
+    message: "the server couldn't process the request, check a precondition or the access level",
     statusCode: 400
   },
   unauthorized: {

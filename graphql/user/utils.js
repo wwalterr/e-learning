@@ -36,8 +36,13 @@ const transformUser = (user, creator) => {
   };
 };
 
+const checkEmail = email => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
 module.exports = {
   userHelper,
   checkEmptyPassword,
-  transformUser
+  transformUser,
+  checkEmail
 };
