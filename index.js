@@ -10,6 +10,12 @@ const { errorType } = require("./graphql/constants");
 
 const { auth } = require("./middleware/auth");
 
+const cors = require("cors");
+
+// Cross origin resources
+app.use(cors());
+
+// Authenticate / authorize
 app.use(auth);
 
 app.use(

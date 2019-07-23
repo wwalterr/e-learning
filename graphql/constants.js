@@ -25,7 +25,7 @@ const errorType = {
     statusCode: 400
   },
   unauthorized: {
-    message: "unauthorized, the authentication credentials are not valid ",
+    message: "unauthorized, the authentication credentials are not valid",
     statusCode: 401
   }
 };
