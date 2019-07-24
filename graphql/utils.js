@@ -24,20 +24,17 @@ const formatDate = date => {
 };
 
 const createdAtUpdatedAt = args => {
-  if ("createdAt" in args && "updatedAt" in args) {
+  if ("createdAt" in args && "updatedAt" in args)
     return {
       createdAt: formatDate(args.createdAt),
       updatedAt: formatDate(args.updatedAt)
     };
-  }
 
   return { createdAt: "", updatedAt: "" };
 };
 
 const objectFilter = (args, filter) => {
-  if (!Object.keys(args).length) {
-    return {};
-  }
+  if (!Object.keys(args).length) return {};
 
   return Object.assign({}, args, filter);
 };

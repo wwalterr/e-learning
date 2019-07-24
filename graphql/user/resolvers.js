@@ -17,9 +17,7 @@ const searchUser = async args => {
   try {
     const user = await userHelper({ where: { id: args.id } });
 
-    if (!user) {
-      throw "not found";
-    }
+    if (!user) throw "not found";
 
     const creator = await userHelper({ where: { id: user.creator } });
 
@@ -35,9 +33,7 @@ const createUser = async args => {
   try {
     const user = await userHelper({ where: { id: args.params.creator } });
 
-    if (!user) {
-      throw "not found";
-    }
+    if (!user) throw "not found";
   } catch (error) {
     console.log(error);
 
@@ -45,13 +41,9 @@ const createUser = async args => {
   }
 
   try {
-    if (checkEmptyPassword(args.params.password)) {
-      throw "bad request";
-    }
+    if (checkEmptyPassword(args.params.password)) throw "bad request";
 
-    if (!checkEmail(args.params.email)) {
-      throw "bad request";
-    }
+    if (!checkEmail(args.params.email)) throw "bad request";
 
     const hashedPassword = await bcryptjs.hash(args.params.password, 12);
 
@@ -92,9 +84,7 @@ const removeUser = async args => {
       limit: 1
     });
 
-    if (!userRemoved) {
-      throw "not found";
-    }
+    if (!userRemoved) throw "not found";
 
     return "user removed";
   } catch (error) {
@@ -106,23 +96,14 @@ const removeUser = async args => {
 
 const updateUser = async args => {
   try {
-    const user = await userHelper(
-      {
-        where: { id: args.params.id }
-      },
-      true
-    );
+    const user = await userHelper({ where: { id: args.params.id } }, true);
 
-    if (!user) {
-      throw "not found";
-    }
+    if (!user) throw "not found";
 
     delete args.params.id;
 
-    if ({ ...args.params }.hasOwnProperty("password")) {
-      if (checkEmptyPassword(args.params.password)) {
-        throw "bad request";
-      }
+    if ("password" in args.params) {
+      if (checkEmptyPassword(args.params.password)) throw "bad request";
 
       const hashedPassword = await bcryptjs.hash(args.params.password, 12);
 
@@ -150,32 +131,49 @@ const updateUser = async args => {
 
 const listUsers = async args => {
   try {
-    let users;
+    if ("all" in args && "creator" in args) throw "bad request";
 
-    if ("all" in args) {
-      users = await db.user.findAll();
-    } else {
-      users = await db.user.findAll({
-        where: {
-          creator: args.creator,
-          id: { [db.Sequelize.Op.notIn]: [args.creator] }
-        }
+    const users =
+      "all" in args
+        ? await db.user.findAll()
+        : await db.user.findAll({
+            where: {
+              creator: args.creator,
+              id: { [db.Sequelize.Op.notIn]: [args.creator] }
+            }
+          });
+
+    if (!users.length) throw "not found";
+
+    let creator;
+
+    if ("creator" in args) {
+      creator = await userHelper({
+        where: { id: args.creator }
       });
     }
-    if (!users.length) {
-      throw "not found";
+
+    let _users = [];
+
+    // N+1 problem, it needs to be optimized
+    for (user of users) {
+      if ("creator" in args)
+        _users.push(
+          objectFilter(user.dataValues, transformUser(user.dataValues, creator))
+        );
+      else {
+        let _creator = await userHelper({ where: { id: user.creator } });
+
+        _users.push(
+          objectFilter(
+            user.dataValues,
+            transformUser(user.dataValues, _creator)
+          )
+        );
+      }
     }
 
-    const creator = await userHelper({
-      where: { id: args.creator }
-    });
-
-    return users.map(user => {
-      return objectFilter(
-        user.dataValues,
-        transformUser(user.dataValues, creator)
-      );
-    });
+    return _users;
   } catch (error) {
     console.log(error);
 
@@ -185,30 +183,22 @@ const listUsers = async args => {
 
 const login = async args => {
   try {
-    if (!checkEmail(args.email)) {
-      throw "bad request";
-    }
+    if (!checkEmail(args.email)) throw "bad request";
 
     const user = await db.user.findOne({ where: { email: args.email } });
 
-    if (!user) {
-      throw "not found";
-    }
+    if (!user) throw "not found";
 
     const isEqual = await bcryptjs.compare(
       args.password,
       user.dataValues.password
     );
 
-    if (!isEqual) {
-      throw "unauthorized";
-    }
+    if (!isEqual) throw "unauthorized";
 
-    // The first argument is the data stored in the token,
-    // that can later be retrieved. Not required
+    // The first argument is the data stored in the token
     //
-    // The second argument its used to hash the and validate
-    // the token
+    // The second argument is used to hash / validate the token
     //
     // The third argument define the token expiration
     const token = jwt.sign({ userId: user.id }, process.env.jwtKey, {

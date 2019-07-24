@@ -6,9 +6,7 @@ const userHelper = async (query, raw = false, attribute = "dataValues") => {
   try {
     const user = await db.user.findOne(query);
 
-    if (raw) {
-      return user;
-    }
+    if (raw) return user;
 
     const _attribute = user[attribute];
 
@@ -21,9 +19,7 @@ const userHelper = async (query, raw = false, attribute = "dataValues") => {
 };
 
 const checkEmptyPassword = password => {
-  if (password === "") {
-    return true;
-  }
+  if (password === "") return true;
 
   return false;
 };
