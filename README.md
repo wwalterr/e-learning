@@ -82,7 +82,17 @@ yarn sync
 ```
 </details>
 
+<details>
+<summary>Generate Data</summary>
+Generate the application' models data in the database created before, through the Shell:
+
+```sh
+yarn data
+```
+</details>
+
 After create a database and generate the application' models, set the database configuration in the [config/config.json](./config/config.json) file.
+
 </details>
 
 #### Run

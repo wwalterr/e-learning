@@ -17,7 +17,8 @@
   },
   "scripts": {
     "start": "nodemon index.js",
-    "sync": "node sync.js"
+    "sync": "node sync.js",
+    "data": "node data.js"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"

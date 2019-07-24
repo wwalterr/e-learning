@@ -10,4 +10,8 @@ const syncDb = async () => {
   }
 };
 
-syncDb();
+module.exports = {
+  syncDb
+};
+
+if (require.main === module) syncDb();

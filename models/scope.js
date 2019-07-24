@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     Scope.belongsToMany(models.user, {
       through: models.userScope,
       foreignKey: "scopeId",
-      as: "scopes"
+      as: "users"
     });
   };
 
