@@ -185,7 +185,15 @@ const login = async args => {
   try {
     if (!checkEmail(args.email)) throw "bad request";
 
-    const user = await db.user.findOne({ where: { email: args.email } });
+    const user = await db.user.findOne({
+      where: { email: args.email },
+      include: [
+        {
+          model: db.scope,
+          as: "scopes"
+        }
+      ]
+    });
 
     if (!user) throw "not found";
 
@@ -196,19 +204,22 @@ const login = async args => {
 
     if (!isEqual) throw "unauthorized";
 
+    const scopes = user.scopes.map(scope => scope.dataValues.name);
+
     // The first argument is the data stored in the token
     //
     // The second argument is used to hash / validate the token
     //
     // The third argument define the token expiration
-    const token = jwt.sign({ userId: user.id }, process.env.jwtKey, {
+    const token = jwt.sign({ userId: user.id, scopes }, process.env.jwtKey, {
       expiresIn: process.env.jwtExpiration
     });
 
     return {
       userId: user.id,
       token,
-      tokenExpiration: process.env.jwtExpirationInt
+      tokenExpiration: process.env.jwtExpirationInt,
+      scopes
     };
   } catch (error) {
     console.log(error);

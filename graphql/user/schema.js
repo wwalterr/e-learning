@@ -40,6 +40,7 @@ module.exports = `
     type Token {
         userId: Int!
         token: String!
-        tokenExpiration: Int!
+        tokenExpiration: Int!,
+        scopes: [String!]
     }
 `;
