@@ -1,4 +1,4 @@
-module.exports.userScopes = [
+module.exports = [
   {
     name: "searchUser",
     description: "Search user by id"

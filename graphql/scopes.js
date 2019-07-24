@@ -1,3 +1,3 @@
 const userScopes = require("./user/scopes");
 
-moduke.exports = [...userScopes];
+module.exports = [...userScopes];
