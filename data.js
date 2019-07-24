@@ -6,7 +6,7 @@ const scopesSR = require("./graphql/scopes");
 
 const generateAdmin = async () => {
   try {
-    const hashedPassword = await bcryptjs.hash("000000", 12);
+    const hashedPassword = await bcryptjs.hash("123456", 12);
 
     const user = await db.user.create({
       email: "admin@gmail.com",

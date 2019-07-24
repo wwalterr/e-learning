@@ -2,7 +2,12 @@ const db = require("../../models");
 
 const bcryptjs = require("bcryptjs");
 
-const { userHelper, checkEmptyPassword, transformUser, checkEmail } = require("./utils");
+const {
+  userHelper,
+  checkEmptyPassword,
+  transformUser,
+  checkEmail
+} = require("./utils");
 
 const { checkError, objectFilter } = require("../utils");
 
@@ -44,7 +49,7 @@ const createUser = async args => {
       throw "bad request";
     }
 
-    if(!checkEmail(args.params.email)) {
+    if (!checkEmail(args.params.email)) {
       throw "bad request";
     }
 
@@ -145,13 +150,18 @@ const updateUser = async args => {
 
 const listUsers = async args => {
   try {
-    const users = await db.user.findAll({
-      where: {
-        creator: args.creator,
-        id: { [db.Sequelize.Op.notIn]: [args.creator] }
-      }
-    });
+    let users;
 
+    if ("all" in args) {
+      users = await db.user.findAll();
+    } else {
+      users = await db.user.findAll({
+        where: {
+          creator: args.creator,
+          id: { [db.Sequelize.Op.notIn]: [args.creator] }
+        }
+      });
+    }
     if (!users.length) {
       throw "not found";
     }
@@ -175,7 +185,7 @@ const listUsers = async args => {
 
 const login = async args => {
   try {
-    if(!checkEmail(args.email)) {
+    if (!checkEmail(args.email)) {
       throw "bad request";
     }
 
