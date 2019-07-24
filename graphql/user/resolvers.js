@@ -9,11 +9,19 @@ const {
   checkEmail
 } = require("./utils");
 
-const { checkError, objectFilter } = require("../utils");
+const { checkError, objectFilter, checkAuthentication } = require("../utils");
 
 const jwt = require("jsonwebtoken");
 
-const searchUser = async args => {
+const userScopes = require("./scopes");
+
+const searchUser = async (args, req) => {
+  try {
+    checkAuthentication(req, userScopes.searchUser.name);
+  } catch (error) {
+    checkError(error);
+  }
+
   try {
     const user = await userHelper({ where: { id: args.id } });
 
@@ -29,7 +37,13 @@ const searchUser = async args => {
   }
 };
 
-const createUser = async args => {
+const createUser = async (args, req) => {
+  try {
+    checkAuthentication(req, userScopes.createUser.name);
+  } catch (error) {
+    checkError(error);
+  }
+
   try {
     const user = await userHelper({ where: { id: args.params.creator } });
 
@@ -77,7 +91,13 @@ const createUser = async args => {
   }
 };
 
-const removeUser = async args => {
+const removeUser = async (args, req) => {
+  try {
+    checkAuthentication(req, userScopes.removeUser.name);
+  } catch (error) {
+    checkError(error);
+  }
+
   try {
     const userRemoved = await db.user.destroy({
       where: { id: args.id },
@@ -94,7 +114,13 @@ const removeUser = async args => {
   }
 };
 
-const updateUser = async args => {
+const updateUser = async (args, req) => {
+  try {
+    checkAuthentication(req, userScopes.updateUser.name);
+  } catch (error) {
+    checkError(error);
+  }
+
   try {
     const user = await userHelper({ where: { id: args.params.id } }, true);
 
@@ -129,7 +155,13 @@ const updateUser = async args => {
   }
 };
 
-const listUsers = async args => {
+const listUsers = async (args, req) => {
+  try {
+    checkAuthentication(req, userScopes.listUsers.name);
+  } catch (error) {
+    checkError(error);
+  }
+
   try {
     if ("all" in args && "creator" in args) throw "bad request";
 
@@ -156,7 +188,7 @@ const listUsers = async args => {
     let _users = [];
 
     // N+1 problem, it needs to be optimized
-    for (user of users) {
+    for (let user of users) {
       if ("creator" in args)
         _users.push(
           objectFilter(user.dataValues, transformUser(user.dataValues, creator))

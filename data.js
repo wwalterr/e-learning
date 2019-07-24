@@ -28,7 +28,9 @@ const generateAdmin = async () => {
 
 const generateScopes = async () => {
   try {
-    return await db.scope.bulkCreate(scopesSR).map(scope => scope.dataValues);
+    return await db.scope
+      .bulkCreate(Object.values(scopesSR))
+      .map(scope => scope.dataValues);
   } catch (error) {
     console.log(error);
   }

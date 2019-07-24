@@ -1,3 +1,3 @@
 const userScopes = require("./user/scopes");
 
-module.exports = [...userScopes];
+module.exports = { ...userScopes };

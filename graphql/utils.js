@@ -39,9 +39,30 @@ const objectFilter = (args, filter) => {
   return Object.assign({}, args, filter);
 };
 
+const checkAuthentication = (req, scope) => {
+  if (!req.isAuthenticated) {
+    console.log("Token not found, empty token or token bad formated");
+
+    throw "unauthorized";
+  }
+
+  if (!req.hasOwnProperty("scopes") || !req.scopes) {
+    console.log("Token bad formated or scopes were not added in the token");
+
+    throw "unauthorized";
+  }
+
+  if (!req.scopes.includes(scope)) {
+    console.log("Doesn't has the required scope to access");
+
+    throw "unauthorized";
+  }
+};
+
 module.exports = {
   checkError,
   formatDate,
   createdAtUpdatedAt,
-  objectFilter
+  objectFilter,
+  checkAuthentication
 };

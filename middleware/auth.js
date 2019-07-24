@@ -60,6 +60,8 @@ const auth = (req, res, next) => {
 
   req.userId = decodedToken.userId;
 
+  req.scopes = decodedToken.scopes;
+
   return next();
 };
 
