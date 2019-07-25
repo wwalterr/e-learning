@@ -22,7 +22,7 @@ const generateAdmin = async () => {
 
     return user;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -32,7 +32,7 @@ const generateScopes = async () => {
       .bulkCreate(Object.values(scopesSR))
       .map(scope => scope.dataValues);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -51,7 +51,7 @@ const userScope = async () => {
       .bulkCreate(userScopeBulkValues)
       .map(userScope => userScope.dataValues);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 

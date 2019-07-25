@@ -163,17 +163,14 @@ const listUsers = async (args, req) => {
   }
 
   try {
-    if ("all" in args && "creator" in args) throw "bad request";
-
-    const users =
-      "all" in args
-        ? await db.user.findAll()
-        : await db.user.findAll({
-            where: {
-              creator: args.creator,
-              id: { [db.Sequelize.Op.notIn]: [args.creator] }
-            }
-          });
+    const users = !("creator" in args)
+      ? await db.user.findAll()
+      : await db.user.findAll({
+          where: {
+            creator: args.creator,
+            id: { [db.Sequelize.Op.notIn]: [args.creator] }
+          }
+        });
 
     if (!users.length) throw "not found";
 
