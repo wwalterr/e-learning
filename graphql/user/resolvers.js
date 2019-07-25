@@ -3,7 +3,7 @@ const db = require("../../models");
 const bcryptjs = require("bcryptjs");
 
 const {
-  userHelper,
+  queryHelper,
   checkEmptyPassword,
   transformUser,
   checkEmail
@@ -23,16 +23,14 @@ const searchUser = async (args, req) => {
   }
 
   try {
-    const user = await userHelper({ where: { id: args.id } });
+    const user = await queryHelper("user", { where: { id: args.id } });
 
     if (!user) throw "not found";
 
-    const creator = await userHelper({ where: { id: user.creator } });
+    const creator = await queryHelper("user", { where: { id: user.creator } });
 
     return objectFilter(user, transformUser(user, creator));
   } catch (error) {
-    console.log(error);
-
     checkError(error);
   }
 };
@@ -45,12 +43,10 @@ const createUser = async (args, req) => {
   }
 
   try {
-    const user = await userHelper({ where: { id: args.params.creator } });
+    const user = await queryHelper("user", { where: { id: args.params.creator } });
 
     if (!user) throw "not found";
   } catch (error) {
-    console.log(error);
-
     checkError(error);
   }
 
@@ -79,14 +75,12 @@ const createUser = async (args, req) => {
       throw "unique violation";
     }
 
-    const creator = await userHelper({
+    const creator = await queryHelper("user", {
       where: { id: userCreated.dataValues.creator }
     });
 
     return objectFilter(userCreated.dataValues, transformUser(user, creator));
   } catch (error) {
-    console.log(error);
-
     checkError(error);
   }
 };
@@ -108,8 +102,6 @@ const removeUser = async (args, req) => {
 
     return "user removed";
   } catch (error) {
-    console.log(error);
-
     checkError(error);
   }
 };
@@ -122,7 +114,7 @@ const updateUser = async (args, req) => {
   }
 
   try {
-    const user = await userHelper({ where: { id: args.params.id } }, true);
+    const user = await queryHelper("user", { where: { id: args.params.id } }, true);
 
     if (!user) throw "not found";
 
@@ -139,7 +131,7 @@ const updateUser = async (args, req) => {
     const userUpdated = await user.update({ ...args.params });
 
     if (Object.keys(userUpdated._changed).length) {
-      const creator = await userHelper({
+      const creator = await queryHelper("user", {
         where: { id: userUpdated.dataValues.creator }
       });
 
@@ -149,8 +141,6 @@ const updateUser = async (args, req) => {
       );
     }
   } catch (error) {
-    console.log(error);
-
     checkError(error);
   }
 };
@@ -177,7 +167,7 @@ const listUsers = async (args, req) => {
     let creator;
 
     if ("creator" in args) {
-      creator = await userHelper({
+      creator = await queryHelper("user", {
         where: { id: args.creator }
       });
     }
@@ -191,7 +181,7 @@ const listUsers = async (args, req) => {
           objectFilter(user.dataValues, transformUser(user.dataValues, creator))
         );
       else {
-        let _creator = await userHelper({ where: { id: user.creator } });
+        let _creator = await queryHelper("user", { where: { id: user.creator } });
 
         _users.push(
           objectFilter(
@@ -204,8 +194,6 @@ const listUsers = async (args, req) => {
 
     return _users;
   } catch (error) {
-    console.log(error);
-
     checkError(error);
   }
 };
@@ -251,8 +239,6 @@ const login = async args => {
       scopes
     };
   } catch (error) {
-    console.log(error);
-
     checkError(error);
   }
 };

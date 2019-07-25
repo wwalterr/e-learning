@@ -2,13 +2,18 @@ const db = require("../../models");
 
 const { createdAtUpdatedAt } = require("../utils");
 
-const userHelper = async (query, raw = false, attribute = "dataValues") => {
+const queryHelper = async (
+  model,
+  query,
+  raw = false,
+  attribute = "dataValues"
+) => {
   try {
-    const user = await db.user.findOne(query);
+    const queryResult = await db[model].findOne(query);
 
-    if (raw) return user;
+    if (raw) return queryResult;
 
-    const _attribute = user[attribute];
+    const _attribute = queryResult[attribute];
 
     return _attribute;
   } catch (error) {
@@ -37,7 +42,7 @@ const checkEmail = email => {
 };
 
 module.exports = {
-  userHelper,
+  queryHelper,
   checkEmptyPassword,
   transformUser,
   checkEmail

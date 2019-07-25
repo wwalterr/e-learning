@@ -26,14 +26,16 @@ app.use(
     graphiql: true,
     pretty: true,
     customFormatErrorFn: error => {
-      let _error = errorType[error.message];
-
-      return {
-        message: _error.message,
-        statusCode: _error.statusCode,
-        path: error.path,
-        locations: error.locations
-      };
+      try {
+        return {
+          message: errorType[error.message].message,
+          statusCode: errorType[error.message].statusCode,
+          path: error.path,
+          locations: error.locations
+        };
+      } catch (_error) {
+        return error;
+      }
     }
   })
 );

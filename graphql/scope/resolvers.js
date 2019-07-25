@@ -2,28 +2,28 @@ const db = require("../../models");
 
 const { checkError, checkAuthentication } = require("../utils");
 
-const userScopes = require("./scopes");
+const scopeScopes = require("./scopes");
 
-const searchUser = async (args, req) => {
+const searchScope = async (args, req) => {
   try {
-    checkAuthentication(req, userScopes.searchUser.name);
+    checkAuthentication(req, scopeScopes.searchScope.name);
   } catch (error) {
     checkError(error);
   }
 
   try {
-    const user = await userHelper({ where: { id: args.id } });
-
-    if (!user) throw "not found";
-
-    const creator = await userHelper({ where: { id: user.creator } });
-
-    return objectFilter(user, transformUser(user, creator));
+    return {
+      id: 1,
+      name: "",
+      description: "",
+      createdAt: "",
+      updatedAt: ""
+    };
   } catch (error) {
-    console.log(error);
-
     checkError(error);
   }
 };
 
-module.exports = {};
+module.exports = {
+  searchScope
+};

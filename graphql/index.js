@@ -40,6 +40,9 @@ module.exports.schema = buildSchema(`
 // Resolvers
 const userResolvers = require("./user/resolvers");
 
+const scopeResolvers = require("./scope/resolvers");
+
 module.exports.resolvers = {
-  ...userResolvers
+  ...userResolvers,
+  ...scopeResolvers
 };
