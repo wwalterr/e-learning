@@ -80,8 +80,37 @@ const removeScope = async (args, req) => {
   }
 };
 
+const updateScope = async (args, req) => {
+  try {
+    checkAuthentication(req, scopeScopes.updateScope.name);
+  } catch (error) {
+    checkError(error);
+  }
+
+  try {
+    const scope = await queryHelper(
+      "scope",
+      { where: { name: args.params.name } },
+      true
+    );
+
+    if (!scope) throw "not found";
+
+    const scopeUpdated = await scope.update({ ...args.params });
+
+    if (Object.keys(scopeUpdated._changed).length)
+      return objectFilter(
+        scopeUpdated.dataValues,
+        transformScope(scopeUpdated.dataValues)
+      );
+  } catch (error) {
+    checkError(error);
+  }
+};
+
 module.exports = {
   searchScope,
   createScope,
-  removeScope
+  removeScope,
+  updateScope
 };
