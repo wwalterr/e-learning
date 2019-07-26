@@ -29,6 +29,34 @@ const searchScope = async (args, req) => {
   }
 };
 
+const createScope = async (args, req) => {
+  try {
+    checkAuthentication(req, scopeScopes.createScope.name);
+  } catch (error) {
+    checkError(error);
+  }
+
+  try {
+    const scope = {
+      name: args.params.name,
+      description: args.params.description
+    };
+
+    let scopeCreated = {};
+
+    try {
+      scopeCreated = await db.scope.create(scope);
+    } catch (error) {
+      throw "unique violation";
+    }
+
+    return objectFilter(scopeCreated.dataValues, transformScope(scopeCreated.dataValues));
+  } catch (error) {
+    checkError(error);
+  }
+};
+
 module.exports = {
-  searchScope
+  searchScope,
+  createScope
 };
