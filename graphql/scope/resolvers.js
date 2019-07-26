@@ -50,7 +50,31 @@ const createScope = async (args, req) => {
       throw "unique violation";
     }
 
-    return objectFilter(scopeCreated.dataValues, transformScope(scopeCreated.dataValues));
+    return objectFilter(
+      scopeCreated.dataValues,
+      transformScope(scopeCreated.dataValues)
+    );
+  } catch (error) {
+    checkError(error);
+  }
+};
+
+const removeScope = async (args, req) => {
+  try {
+    checkAuthentication(req, scopeScopes.removeScope.name);
+  } catch (error) {
+    checkError(error);
+  }
+
+  try {
+    const scopeRemoved = await db.scope.destroy({
+      where: { name: args.name },
+      limit: 1
+    });
+
+    if (!scopeRemoved) throw "not found";
+
+    return "scope removed";
   } catch (error) {
     checkError(error);
   }
@@ -58,5 +82,6 @@ const createScope = async (args, req) => {
 
 module.exports = {
   searchScope,
-  createScope
+  createScope,
+  removeScope
 };
