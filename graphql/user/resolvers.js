@@ -69,7 +69,7 @@ const createUser = async (args, req) => {
       creator: args.params.creator
     };
 
-    let userCreated = {};
+    let userCreated;
 
     try {
       userCreated = await db.user.create(user);

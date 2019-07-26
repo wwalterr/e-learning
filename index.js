@@ -26,6 +26,8 @@ app.use(
     graphiql: true,
     pretty: true,
     customFormatErrorFn: error => {
+      console.log(error);
+
       try {
         return {
           message: errorType[error.message].message,
