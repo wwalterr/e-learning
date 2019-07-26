@@ -9,7 +9,6 @@ module.exports = `
     }
 
     input ContactInput {
-        userId: Int!
         email: String
         phone: String
     }

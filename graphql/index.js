@@ -7,12 +7,16 @@ const scopeSchema = require("./scope/schema");
 
 const contactSchema = require("./contact/schema");
 
+const addressSchema = require("./address/schema");
+
 module.exports.schema = buildSchema(`
     ${userSchema}
 
     ${scopeSchema}
 
     ${contactSchema}
+
+    ${addressSchema}
 
     type RootQuery {
         searchUser(id: Int!): User!
@@ -22,7 +26,9 @@ module.exports.schema = buildSchema(`
         searchScope(name: String!): Scope!
         listScopes: [Scope!]
 
-        listContacts(userId: Int): [Contact!]
+        listContacts(userId: Int!): [Contact!]
+
+        listAddresses(userId: Int!): [Address!]
     }   
 
     type RootMutation {
@@ -37,6 +43,10 @@ module.exports.schema = buildSchema(`
         createContact(params: ContactInput!): Contact!
         removeContact(id: Int!): String!
         updateContact(params: ContactUpdate!): Contact!
+
+        createAddress(params: AddressInput!): Address!
+        removeAddress(id: Int!): String!
+        updateAddress(params: AddressUpdate!): Address!
     }
 
     schema {
@@ -54,8 +64,11 @@ const scopeResolvers = require("./scope/resolvers");
 
 const contactResolvers = require("./contact/resolvers");
 
+const addressResolvers = require("./address/resolvers");
+
 module.exports.resolvers = {
   ...userResolvers,
   ...scopeResolvers,
-  ...contactResolvers
+  ...contactResolvers,
+  ...addressResolvers
 };
