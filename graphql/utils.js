@@ -1,4 +1,27 @@
+const db = require("../models");
+
 const { errorName } = require("./constants");
+
+const queryHelper = async (
+  model,
+  query,
+  raw = false,
+  attribute = "dataValues"
+) => {
+  try {
+    const queryResult = await db[model].findOne(query);
+
+    if (raw) return queryResult;
+
+    const _attribute = queryResult[attribute];
+
+    return _attribute;
+  } catch (error) {
+    console.log(error);
+
+    return null;
+  }
+};
 
 const checkError = errorType => {
   switch (errorType) {
@@ -60,6 +83,7 @@ const checkAuthentication = (req, scope) => {
 };
 
 module.exports = {
+  queryHelper,
   checkError,
   formatDate,
   createdAtUpdatedAt,

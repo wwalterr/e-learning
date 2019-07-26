@@ -2,14 +2,14 @@ const db = require("../../models");
 
 const bcryptjs = require("bcryptjs");
 
-const {
-  queryHelper,
-  checkEmptyPassword,
-  transformUser,
-  checkEmail
-} = require("./utils");
+const { checkEmptyPassword, transformUser, checkEmail } = require("./utils");
 
-const { checkError, objectFilter, checkAuthentication } = require("../utils");
+const {
+  checkError,
+  objectFilter,
+  checkAuthentication,
+  queryHelper
+} = require("../utils");
 
 const jwt = require("jsonwebtoken");
 
@@ -43,7 +43,9 @@ const createUser = async (args, req) => {
   }
 
   try {
-    const user = await queryHelper("user", { where: { id: args.params.creator } });
+    const user = await queryHelper("user", {
+      where: { id: args.params.creator }
+    });
 
     if (!user) throw "not found";
   } catch (error) {
@@ -114,7 +116,11 @@ const updateUser = async (args, req) => {
   }
 
   try {
-    const user = await queryHelper("user", { where: { id: args.params.id } }, true);
+    const user = await queryHelper(
+      "user",
+      { where: { id: args.params.id } },
+      true
+    );
 
     if (!user) throw "not found";
 
@@ -181,7 +187,9 @@ const listUsers = async (args, req) => {
           objectFilter(user.dataValues, transformUser(user.dataValues, creator))
         );
       else {
-        let _creator = await queryHelper("user", { where: { id: user.creator } });
+        let _creator = await queryHelper("user", {
+          where: { id: user.creator }
+        });
 
         _users.push(
           objectFilter(
