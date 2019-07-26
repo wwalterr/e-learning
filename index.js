@@ -18,16 +18,16 @@ app.use(cors());
 // Authenticate / authorize
 app.use(auth);
 
+const endpoint = "/graphql";
+
 app.use(
-  "/graphql",
+  endpoint,
   graphQlHTTP({
     schema: graphqlSR.schema,
     rootValue: graphqlSR.resolvers,
     graphiql: true,
     pretty: true,
     customFormatErrorFn: error => {
-      console.log(error);
-
       try {
         return {
           message: errorType[error.message].message,
@@ -43,7 +43,7 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-  return res.redirect("/graphql");
+  return res.redirect(endpoint);
 });
 
 app.listen(3000, () => {});

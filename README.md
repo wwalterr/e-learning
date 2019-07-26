@@ -2,15 +2,13 @@
 
 ---
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe6a3cb9ff634640afd1336755d68cb2)](https://www.codacy.com/app/Sphinxs/Graph?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Sphinxs/Graph&amp;utm_campaign=Badge_Grade) [![Maintainability](https://api.codeclimate.com/v1/badges/2e94725148c871f8bbaf/maintainability)](https://codeclimate.com/github/Sphinxs/Graph/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/2e94725148c871f8bbaf/test_coverage)](https://codeclimate.com/github/Sphinxs/Graph/test_coverage) ![GitHub last commit](https://img.shields.io/github/last-commit/sphinxs/graph.svg) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)]([code-of-conduct.md](https://www.contributor-covenant.org/version/1/4/code-of-conduct))
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe6a3cb9ff634640afd1336755d68cb2)](https://www.codacy.com/app/Sphinxs/Graph?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Sphinxs/Graph&amp;utm_campaign=Badge_Grade)  [![Test Coverage](https://api.codeclimate.com/v1/badges/2e94725148c871f8bbaf/test_coverage)](https://codeclimate.com/github/Sphinxs/Graph/test_coverage) ![GitHub last commit](https://img.shields.io/github/last-commit/sphinxs/graph.svg) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)]([code-of-conduct.md](https://www.contributor-covenant.org/version/1/4/code-of-conduct))
 
 ---
 
 GraphQL API to manage MySQL resources
 
 #### Setup
-
-This tutorial assumes you're using Linux.
 
 <details>
 <summary>Yarn</summary>
@@ -55,7 +53,7 @@ sudo apt install docker-compose
 
 <details>
 <summary>MySQL</summary>
-Install the MySQL image, through [Docker Hub](https://hub.docker.com/), and create a container:
+Install the MySQL image and create a container:
 
 ```sh
 docker-compose -f docker-compose.yml up
@@ -63,19 +61,13 @@ docker-compose -f docker-compose.yml up
 
 <details>
 <summary>Generate Models</summary>
-Enter inside the container MySQL CLI:
+Enter inside the MySQL CLI through the MySQL container:
 
 ```sh
 docker exec -it database mysql -u root -p
 ```
 
-Create a database, through the MySQL CLI, if it wasn't generated when the container was created:
-
-```sh
-mysql> CREATE DATABASE graph;
-```
-
-Generate the application' models in the database created above, through the Shell:
+Generate the application' models in the database created above:
 
 ```sh
 yarn sync
@@ -84,7 +76,7 @@ yarn sync
 
 <details>
 <summary>Generate Data</summary>
-Generate the application' models data in the database created before, through the Shell:
+Generate the application' models data in the database created before:
 
 ```sh
 yarn data
@@ -119,7 +111,7 @@ Open the [localhost:3000](http://localhost:3000) URL in the browser.
 
 #### Collections
 
-To manage the [collections](./collections/insomnia.json) its necessary to install the Insomnia request manager.
+To manage the collections its necessary to install the Insomnia request manager.
 
 <details>
 <summary>Snap</summary>

@@ -2,7 +2,7 @@
 .vscode
 
 # workbench 
-model.mwb.bak
+*.mwb.bak
 
 # logs
 logs
@@ -18,10 +18,6 @@ pids
 
 # dependency directories
 node_modules/
-jspm_packages/
-
-# optional eslint cache
-.eslintcache
 
 # yarn Integrity file
 .yarn-integrity

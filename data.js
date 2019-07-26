@@ -2,25 +2,27 @@ const db = require("./models");
 
 const bcryptjs = require("bcryptjs");
 
-const scopesSR = require("./graphql/scopes");
+const scopes = require("./graphql/scopes");
 
 const generateAdmin = async () => {
   try {
     const hashedPassword = await bcryptjs.hash("123456", 12);
 
-    const user = await db.user.create({
+    const user = {
       email: "admin@gmail.com",
       password: hashedPassword,
-      cpf: "11111111111",
-      matriculation: "2222",
+      cpf: "",
+      matriculation: "",
       firstName: "Admin",
       secondName: "",
       creator: 1
-    });
+    };
 
-    user.update({ creator: user.dataValues.id });
+    const userCreated = await db.user.create(user);
 
-    return user;
+    userCreated.update({ creator: userCreated.dataValues.id });
+
+    return userCreated;
   } catch (error) {
     throw error;
   }
@@ -29,7 +31,7 @@ const generateAdmin = async () => {
 const generateScopes = async () => {
   try {
     return await db.scope
-      .bulkCreate(Object.values(scopesSR))
+      .bulkCreate(Object.values(scopes))
       .map(scope => scope.dataValues);
   } catch (error) {
     throw error;
@@ -40,15 +42,15 @@ const userScope = async () => {
   try {
     const user = await generateAdmin();
 
-    const scopes = await generateScopes();
+    const _scopes = await generateScopes();
 
-    const userScopeBulkValues = scopes.map(scope => ({
+    const userScopeValues = _scopes.map(scope => ({
       userId: user.dataValues.id,
       scopeId: scope.id
     }));
 
     return await db.userScope
-      .bulkCreate(userScopeBulkValues)
+      .bulkCreate(userScopeValues)
       .map(userScope => userScope.dataValues);
   } catch (error) {
     throw error;

@@ -1,6 +1,6 @@
 const db = require("./models");
 
-const syncDb = async () => {
+const sync = async () => {
   try {
     await db.sequelize.sync();
   } catch (error) {
@@ -9,7 +9,7 @@ const syncDb = async () => {
 };
 
 module.exports = {
-  syncDb
+  sync
 };
 
-if (require.main === module) syncDb();
+if (require.main === module) sync();
