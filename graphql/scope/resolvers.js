@@ -108,9 +108,30 @@ const updateScope = async (args, req) => {
   }
 };
 
+const listScopes = async (args, req) => {
+  try {
+    checkAuthentication(req, scopeScopes.listScopes.name);
+  } catch (error) {
+    checkError(error);
+  }
+
+  try {
+    const scopes = await db.scope.findAll();
+
+    if (!scopes.length) throw "not found";
+
+    return scopes.map(scope => {
+      return objectFilter(scope.dataValues, transformScope(scope.dataValues));
+    });
+  } catch (error) {
+    checkError(error);
+  }
+};
+
 module.exports = {
   searchScope,
   createScope,
   removeScope,
-  updateScope
+  updateScope,
+  listScopes
 };
