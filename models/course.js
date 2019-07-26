@@ -4,8 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
-        autoIncrement: true
+        noUpdate: true
       },
       title: {
         type: DataTypes.STRING,
@@ -22,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       end: {
         type: DataTypes.DATE,
         allowNull: false
+      },
+      owner: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       }
     },
     {
@@ -33,8 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     Course.belongsToMany(models.user, {
       through: models.courseUser,
       foreignKey: "courseId",
-      as: "courses"
+      as: "users"
     });
+
+    Course.hasMany(models.class, { as: "classes" });
   };
 
   return Course;

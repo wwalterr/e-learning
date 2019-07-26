@@ -4,15 +4,16 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
-        autoIncrement: true
+        noUpdate: true
       },
       vacancies: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
       },
       instructor: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
       },
       room: {
@@ -22,9 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       shift: {
         type: DataTypes.STRING,
         allowNull: false
-      },
-      courseId: {
-        type: DataTypes.INTEGER
       }
     },
     {
@@ -38,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     Class.belongsToMany(models.user, {
       through: models.classUser,
       foreignKey: "classId",
-      as: "classes"
+      as: "users"
     });
   };
 

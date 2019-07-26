@@ -4,19 +4,17 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
-        autoIncrement: true
+        noUpdate: true
       },
       attendance: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      grade: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      classUserId: {
-        type: DataTypes.INTEGER
+      grade: {
+        type: DataTypes.FLOAT,
+        allowNull: false
       }
     },
     {

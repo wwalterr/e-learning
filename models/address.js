@@ -4,18 +4,16 @@ module.exports = (sequelize, DataTypes) => {
     {
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
-        autoIncrement: true
+        noUpdate: true
       },
       street: DataTypes.STRING,
       number: DataTypes.INTEGER,
       complement: DataTypes.STRING,
       city: DataTypes.STRING,
       state: DataTypes.STRING,
-      zipCode: DataTypes.STRING(15),
-      userId: {
-        type: DataTypes.INTEGER
-      }
+      zipCode: DataTypes.STRING(15)
     },
     {
       freezeTableName: true

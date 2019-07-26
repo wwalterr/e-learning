@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false
+        allowNull: false,
+        noUpdate: true
       },
       password: {
         type: DataTypes.STRING,
@@ -30,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
       secondName: DataTypes.STRING,
       creator: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        noUpdate: true
       }
     },
     {
@@ -45,6 +47,18 @@ module.exports = (sequelize, DataTypes) => {
       through: models.userScope,
       foreignKey: "userId",
       as: "scopes"
+    });
+
+    User.belongsToMany(models.course, {
+      through: models.courseUser,
+      foreignKey: "userId",
+      as: "courses"
+    });
+
+    User.belongsToMany(models.class, {
+      through: models.classUser,
+      foreignKey: "userId",
+      as: "classes"
     });
   };
 
