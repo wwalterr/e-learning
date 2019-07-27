@@ -128,10 +128,39 @@ const listScopes = async (args, req) => {
   }
 };
 
+const signScope = async (args, req) => {
+  try {
+    checkAuthentication(req, scopeScopes.signScope.name);
+  } catch (error) {
+    checkError(error);
+  }
+
+  try {
+    const scope = await queryHelper("scope", { where: { id: args.scopeId } });
+
+    if (!scope) throw "not found";
+
+    const user = await queryHelper("user", { where: { id: args.userId } });
+
+    if (!user) throw "not found";
+
+    try {
+      const userScope = await db.userScope.create({ ...args });
+    } catch (error) {
+      throw "unique violation";
+    }
+
+    return "user and scope associated";
+  } catch (error) {
+    checkError(error);
+  }
+};
+
 module.exports = {
   searchScope,
   createScope,
   removeScope,
   updateScope,
-  listScopes
+  listScopes,
+  signScope
 };

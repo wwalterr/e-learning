@@ -24,9 +24,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: false
       },
-      owner: {
+      creator: {
         type: DataTypes.INTEGER,
         allowNull: false
+      },
+      private: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
       }
     },
     {
