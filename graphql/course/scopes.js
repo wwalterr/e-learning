@@ -1,7 +1,7 @@
 module.exports = {
-  searchCourse: {
-    name: "searchCourse",
-    description: "Search course by id, title, start, end or creator"
+  searchCourses: {
+    name: "searchCourses",
+    description: "Search courses by id, title, start, end or creator"
   },
   listCourses: {
     name: "listCourses",

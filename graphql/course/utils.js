@@ -1,6 +1,6 @@
 const { createdAtUpdatedAt } = require("../utils");
 
-const transformCourse = course => {
+const transformCourse = (course) => {
   return {
     id: null,
     ...createdAtUpdatedAt(course)

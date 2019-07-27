@@ -7,6 +7,8 @@ module.exports = `
         end: String
         creator: Int
         private: Boolean
+        createdAt: String
+		updatedAt: String
     }
 
     input CourseSearch {
@@ -18,15 +20,16 @@ module.exports = `
     }
 
     input CourseInput {
-        title: String
-        description: String
-        start: String
-        end: String
-        creator: Int
+        title: String!
+        description: String!
+        start: String!
+        end: String!
+        creator: Int!
         private: Boolean
     }
 
     input CourseUpdate {
+        id: Int!
         title: String
         description: String
         start: String

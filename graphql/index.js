@@ -34,7 +34,7 @@ module.exports.schema = buildSchema(`
 
         listAddresses(userId: Int!): [Address!]
 
-        searchCourse(params: CourseSearch!): [Course!]
+        searchCourses(params: CourseSearch!): [Course!]
         listCourses(private: Boolean!): [Course!]
     }   
 
