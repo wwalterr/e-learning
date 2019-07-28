@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   Progress.associate = models => {
     Progress.belongsTo(models.classUser, {
       foreignKey: "classUserId",
-      as: "classUser"
+      as: "progress"
     });
   };
 

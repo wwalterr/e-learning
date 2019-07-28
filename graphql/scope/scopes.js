@@ -18,9 +18,5 @@ module.exports = {
   listScopes: {
     name: "listScopes",
     description: "List all scopes"
-  },
-  signScope: {
-    name: "signScope",
-    description: "Associate a token to an user"
   }
 };
