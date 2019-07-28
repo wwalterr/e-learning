@@ -18,9 +18,5 @@ module.exports = {
   updateCourse: {
     name: "updateCourse",
     description: "Update course attributes values"
-  },
-  signCourse: {
-    name: "signCourse",
-    description: "Associate a course to an user"
   }
 };

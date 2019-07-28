@@ -67,7 +67,9 @@ const listUserScopes = async (args, req) => {
   }
 
   try {
-    const userScopes = await db.userScope.findAll();
+    const userScopes = Object.keys(args).length
+      ? await db.userScope.findAll({ where: { ...args } })
+      : await db.userScope.findAll();
 
     if (!userScopes.length) throw "not found";
 

@@ -198,41 +198,10 @@ const updateCourse = async (args, req) => {
   }
 };
 
-const signCourse = async (args, req) => {
-  try {
-    checkAuthentication(req, courseScopes.signCourse.name);
-  } catch (error) {
-    checkError(error);
-  }
-
-  try {
-    const course = await queryHelper("course", {
-      where: { id: args.courseId }
-    });
-
-    if (!course) throw "not found";
-
-    const user = await queryHelper("user", { where: { id: args.userId } });
-
-    if (!user) throw "not found";
-
-    try {
-      const courseUser = await db.courseUser.create({ ...args });
-    } catch (error) {
-      throw "unique violation";
-    }
-
-    return "user and course associated";
-  } catch (error) {
-    checkError(error);
-  }
-};
-
 module.exports = {
   createCourse,
   removeCourse,
   searchCourses,
   listCourses,
-  updateCourse,
-  signCourse
+  updateCourse
 };

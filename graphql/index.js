@@ -13,6 +13,8 @@ const courseSchema = require("./course/schema");
 
 const userScope = require("./userScope/schema");
 
+const courseUser = require("./courseUser/schema");
+
 module.exports.schema = buildSchema(`
     ${userSchema}
 
@@ -26,6 +28,8 @@ module.exports.schema = buildSchema(`
     
     ${userScope}
 
+    ${courseUser}
+
     type RootQuery {
         searchUser(id: Int!): User!
         listUsers(creator: Int, all: Boolean): [User!]
@@ -34,7 +38,7 @@ module.exports.schema = buildSchema(`
         searchScope(name: String!): Scope!
         listScopes: [Scope!]
 
-        listUserScopes: [UserScope!]
+        listUserScopes(userId: Int, scopeId: Int): [UserScope!]
 
         listContacts(userId: Int!): [Contact!]
 
@@ -42,6 +46,8 @@ module.exports.schema = buildSchema(`
 
         searchCourses(params: CourseSearch!): [Course!]
         listCourses(private: Boolean!): [Course!]
+
+        listCourseUsers(userId: Int, courseId: Int): [CourseUser!]
     }   
 
     type RootMutation {
@@ -67,7 +73,9 @@ module.exports.schema = buildSchema(`
         createCourse(params: CourseInput!): Course!
         removeCourse(id: Int!): String!
         updateCourse(params: CourseUpdate!): Course!
-        signCourse(courseId: Int!, userId: Int!): String!
+        
+        createCourseUser(courseId: Int!, userId: Int!): String!
+        removeCourseUser(courseId: Int!, userId: Int!): String!
     }
 
     schema {
@@ -91,11 +99,14 @@ const courseResolvers = require("./course/resolvers");
 
 const userScopeResolvers = require("./userScope/resolvers");
 
+const courseUserResolvers = require("./courseUser/resolvers");
+
 module.exports.resolvers = {
   ...userResolvers,
   ...scopeResolvers,
   ...contactResolvers,
   ...addressResolvers,
   ...courseResolvers,
-  ...userScopeResolvers
+  ...userScopeResolvers,
+  ...courseUserResolvers
 };
