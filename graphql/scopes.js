@@ -12,6 +12,8 @@ const userScopeScopes = require("./userScope/scopes");
 
 const courseUserScopes = require("./courseUser/scopes");
 
+const classScopes = require("./class/scopes");
+
 module.exports = {
   ...userScopes,
   ...scopeScopes,
@@ -19,5 +21,6 @@ module.exports = {
   ...addressScopes,
   ...courseScopes,
   ...userScopeScopes,
-  ...courseUserScopes
+  ...courseUserScopes,
+  ...classScopes
 };
