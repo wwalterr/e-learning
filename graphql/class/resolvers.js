@@ -119,6 +119,8 @@ const updateClass = async (args, req) => {
         classUpdated.dataValues,
         createdAtUpdatedAt(classUpdated.dataValues)
       );
+
+    throw "no content";
   } catch (error) {
     checkError(error);
   }

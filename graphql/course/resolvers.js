@@ -193,6 +193,8 @@ const updateCourse = async (args, req) => {
         courseUpdated.dataValues,
         transformCourse(courseUpdated.dataValues)
       );
+
+    throw "no content";
   } catch (error) {
     checkError(error);
   }

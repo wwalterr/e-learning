@@ -37,6 +37,9 @@ const checkError = errorType => {
     case "unauthorized":
       throw new Error(errorName.unauthorized);
 
+    case "no content":
+      throw new Error(errorName.noContent);
+
     default:
       throw new Error(errorName.internal);
   }

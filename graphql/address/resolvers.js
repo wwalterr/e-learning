@@ -73,6 +73,8 @@ const updateAddress = async (args, req) => {
         addressUpdated.dataValues,
         transformAddress(addressUpdated.dataValues)
       );
+
+    throw "no content";
   } catch (error) {
     checkError(error);
   }

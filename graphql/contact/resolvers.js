@@ -69,6 +69,8 @@ const updateContact = async (args, req) => {
         contactUpdated.dataValues,
         transformContact(contactUpdated.dataValues)
       );
+
+    throw "no content";
   } catch (error) {
     checkError(error);
   }

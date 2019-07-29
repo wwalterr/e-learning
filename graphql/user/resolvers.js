@@ -146,6 +146,8 @@ const updateUser = async (args, req) => {
         transformUser(userUpdated.dataValues, creator)
       );
     }
+
+    throw "no content";
   } catch (error) {
     checkError(error);
   }

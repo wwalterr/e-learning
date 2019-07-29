@@ -17,6 +17,10 @@ const courseUserSchema = require("./courseUser/schema");
 
 const classSchema = require("./class/schema");
 
+const classUserSchema = require("./classUser/schema");
+
+const progressSchema = require("./progress/schema");
+
 module.exports.schema = buildSchema(`
     ${userSchema}
 
@@ -33,6 +37,10 @@ module.exports.schema = buildSchema(`
     ${courseUserSchema}
 
     ${classSchema}
+
+    ${classUserSchema}
+
+    ${progressSchema}
 
     type RootQuery {
         searchUser(id: Int!): User!
@@ -54,12 +62,14 @@ module.exports.schema = buildSchema(`
         listCourseUsers(userId: Int, courseId: Int): [CourseUser!]
 
         listClasses(params: ClassSearch!): [Class!]
+
+        listClassUsers(userId: Int, classId: Int): [ClassUser!]
     }   
 
     type RootMutation {
         createUser(params: UserInput!): User!
         removeUser(id: Int!): String!
-        updateUser(params: UserUpdateInput!): User!
+        updateUser(params: UserUpdateInput!): User
 
         createScope(params: ScopeInput!): Scope!
         removeScope(name: String!): String!
@@ -86,6 +96,9 @@ module.exports.schema = buildSchema(`
         createClass(params: ClassInput!): Class!
         removeClass(id: Int!): String!
         updateClass(params: ClassUpdateInput!): Class!
+
+        createClassUser(classId: Int!, userId: Int!): String!
+        removeClassUser(classId: Int!, userId: Int!): String!
     }
 
     schema {
@@ -113,6 +126,10 @@ const courseUserResolvers = require("./courseUser/resolvers");
 
 const classResolvers = require("./class/resolvers");
 
+const classUserResolvers = require("./classUser/resolvers");
+
+const progressResolvers = require("./progress/resolvers");
+
 module.exports.resolvers = {
   ...userResolvers,
   ...scopeResolvers,
@@ -121,5 +138,7 @@ module.exports.resolvers = {
   ...courseResolvers,
   ...userScopeResolvers,
   ...courseUserResolvers,
-  ...classResolvers
+  ...classResolvers,
+  ...classUserResolvers,
+  ...progressResolvers
 };

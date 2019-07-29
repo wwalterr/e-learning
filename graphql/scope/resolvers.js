@@ -103,6 +103,8 @@ const updateScope = async (args, req) => {
         scopeUpdated.dataValues,
         transformScope(scopeUpdated.dataValues)
       );
+
+    throw "no content";
   } catch (error) {
     checkError(error);
   }

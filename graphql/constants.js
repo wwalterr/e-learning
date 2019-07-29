@@ -3,7 +3,8 @@ const errorName = {
   internal: "internal",
   notFound: "notFound",
   badRequest: "badRequest",
-  unauthorized: "unauthorized"
+  unauthorized: "unauthorized",
+  noContent: "noContent"
 };
 
 const errorType = {
@@ -26,6 +27,10 @@ const errorType = {
   unauthorized: {
     message: "unauthorized, the authentication credentials are not valid",
     statusCode: 401
+  },
+  noContent: {
+    message: "the server successfully processed the request, but is not returning any content",
+    statusCode: 204
   }
 };
 
