@@ -27,5 +27,6 @@ module.exports = {
   ...userScopeScopes,
   ...courseUserScopes,
   ...classScopes,
-  ...classUserScopes
+  ...classUserScopes,
+  ...progressScopes
 };

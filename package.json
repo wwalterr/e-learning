@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "main": "index.js",
   "author": "Sphinxs",
-  "license": "MIT",
+  "license": "Mozilla Public License 2.0",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

@@ -64,12 +64,14 @@ module.exports.schema = buildSchema(`
         listClasses(params: ClassSearch!): [Class!]
 
         listClassUsers(userId: Int, classId: Int): [ClassUser!]
+
+        listProgresses(params: ProgressSearch!): [Progress!]
     }   
 
     type RootMutation {
         createUser(params: UserInput!): User!
         removeUser(id: Int!): String!
-        updateUser(params: UserUpdateInput!): User
+        updateUser(params: UserUpdateInput!): User!
 
         createScope(params: ScopeInput!): Scope!
         removeScope(name: String!): String!
@@ -99,6 +101,10 @@ module.exports.schema = buildSchema(`
 
         createClassUser(classId: Int!, userId: Int!): String!
         removeClassUser(classId: Int!, userId: Int!): String!
+
+        createProgress(params: ProgressInput!): Progress!
+        removeProgress(id: Int!): String!
+        updateProgress(params: ProgressUpdateInput!): Progress!
     }
 
     schema {
