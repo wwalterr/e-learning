@@ -4,7 +4,8 @@ const errorName = {
   notFound: "notFound",
   badRequest: "badRequest",
   unauthorized: "unauthorized",
-  noContent: "noContent"
+  noContent: "noContent",
+  badGateway: "badGateway"
 };
 
 const errorType = {
@@ -21,7 +22,8 @@ const errorType = {
     statusCode: 404
   },
   badRequest: {
-    message: "the server couldn't process the request, check a precondition or the access level",
+    message:
+      "the server couldn't process the request, check a precondition or the access level",
     statusCode: 400
   },
   unauthorized: {
@@ -29,8 +31,13 @@ const errorType = {
     statusCode: 401
   },
   noContent: {
-    message: "the server successfully processed the request, but is not returning any content",
+    message:
+      "the server successfully processed the request, but is not returning any content",
     statusCode: 204
+  },
+  badGateway: {
+    message: "the server received an invalid response from the upstream server",
+    statusCode: 502
   }
 };
 

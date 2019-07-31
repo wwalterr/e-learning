@@ -40,6 +40,9 @@ const checkError = errorType => {
     case "no content":
       throw new Error(errorName.noContent);
 
+    case "bad gateway":
+      throw new Error(errorName.badGateway);
+
     default:
       throw new Error(errorName.internal);
   }

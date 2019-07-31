@@ -15,6 +15,23 @@ const jwt = require("jsonwebtoken");
 
 const userScopes = require("./scopes");
 
+const generatePassword = require("generate-password");
+
+const nodemailer = require("nodemailer");
+
+const smtpTransport = require("nodemailer-smtp-transport");
+
+const transporter = nodemailer.createTransport(
+  smtpTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    auth: {
+      user: process.env.gmailEmail,
+      pass: process.env.gmailPassword
+    }
+  })
+);
+
 const searchUser = async (args, req) => {
   try {
     checkAuthentication(req, userScopes.searchUser.name);
@@ -53,7 +70,17 @@ const createUser = async (args, req) => {
   }
 
   try {
-    if (checkEmptyPassword(args.params.password)) throw "bad request";
+    let generatedPassword;
+
+    if (checkEmptyPassword(args.params.password)) {
+      generatedPassword = generatePassword.generate({
+        length: 6,
+        numbers: true,
+        symbols: false
+      });
+
+      args.params.password = generatedPassword;
+    }
 
     if (!checkEmail(args.params.email)) throw "bad request";
 
@@ -80,6 +107,28 @@ const createUser = async (args, req) => {
     const creator = await queryHelper("user", {
       where: { id: userCreated.dataValues.creator }
     });
+
+    if (generatedPassword) {
+      const message = {
+        from: process.env.gmailFrom,
+        to: `${args.params.firstName} <${args.params.email}>`,
+        subject: "Your account has been registered ✔",
+        text: "",
+        html: `
+          <p>You can use the password below to access the platform and change your account' password: </p>
+
+          <span>Password: <strong>${args.params.password}</strong></span>
+        `
+      };
+
+      try {
+        let info = await transporter.sendMail(message);
+      } catch (error) {
+        console.log(error);
+
+        throw "bad gateway";
+      }
+    }
 
     return objectFilter(userCreated.dataValues, transformUser(user, creator));
   } catch (error) {

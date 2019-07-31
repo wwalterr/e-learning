@@ -864,6 +864,11 @@ generate-function@^2.3.1:
   dependencies:
     is-property "^1.0.2"
 
+generate-password@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/generate-password/-/generate-password-1.4.2.tgz#77f344ec525f3bfdc1e50899c09e3c46ddb95dfd"
+  integrity sha512-UYEOMRcnpC/228qfCQNSebq8jmIonoPYPILsZl2NmH16Vm53yPvgo/KK3BYeCA3JmhSA/a/HqHzaY0v5dRbyoQ==
+
 get-caller-file@^2.0.1:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
@@ -997,6 +1002,19 @@ http-errors@1.7.3, http-errors@^1.7.2, http-errors@~1.7.2:
     setprototypeof "1.1.1"
     statuses ">= 1.5.0 < 2"
     toidentifier "1.0.0"
+
+httpntlm@1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/httpntlm/-/httpntlm-1.6.1.tgz#ad01527143a2e8773cfae6a96f58656bb52a34b2"
+  integrity sha1-rQFScUOi6Hc8+uapb1hla7UqNLI=
+  dependencies:
+    httpreq ">=0.4.22"
+    underscore "~1.7.0"
+
+httpreq@>=0.4.22:
+  version "0.4.24"
+  resolved "https://registry.yarnpkg.com/httpreq/-/httpreq-0.4.24.tgz#4335ffd82cd969668a39465c929ac61d6393627f"
+  integrity sha1-QzX/2CzZaWaKOUZckprGHWOTYn8=
 
 iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@^0.4.4:
   version "0.4.24"
@@ -1660,6 +1678,37 @@ node-pre-gyp@^0.12.0:
     semver "^5.3.0"
     tar "^4"
 
+nodemailer-fetch@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/nodemailer-fetch/-/nodemailer-fetch-1.6.0.tgz#79c4908a1c0f5f375b73fe888da9828f6dc963a4"
+  integrity sha1-ecSQihwPXzdbc/6IjamCj23JY6Q=
+
+nodemailer-shared@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/nodemailer-shared/-/nodemailer-shared-1.1.0.tgz#cf5994e2fd268d00f5cf0fa767a08169edb07ec0"
+  integrity sha1-z1mU4v0mjQD1zw+nZ6CBae2wfsA=
+  dependencies:
+    nodemailer-fetch "1.6.0"
+
+nodemailer-smtp-transport@^2.7.4:
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/nodemailer-smtp-transport/-/nodemailer-smtp-transport-2.7.4.tgz#0d89af019a144a480fd8ecc99997d9f838f13685"
+  integrity sha1-DYmvAZoUSkgP2OzJmZfZ+DjxNoU=
+  dependencies:
+    nodemailer-shared "1.1.0"
+    nodemailer-wellknown "0.1.10"
+    smtp-connection "2.12.0"
+
+nodemailer-wellknown@0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/nodemailer-wellknown/-/nodemailer-wellknown-0.1.10.tgz#586db8101db30cb4438eb546737a41aad0cf13d5"
+  integrity sha1-WG24EB2zDLRDjrVGc3pBqtDPE9U=
+
+nodemailer@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.3.0.tgz#a89b0c62d3937bdcdeecbf55687bd7911b627e12"
+  integrity sha512-TEHBNBPHv7Ie/0o3HXnb7xrPSSQmH1dXwQKRaMKDBGt/ZN54lvDVujP6hKkO/vjkIYL9rK8kHSG11+G42Nhxuw==
+
 nodemon@^1.19.1:
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.19.1.tgz#576f0aad0f863aabf8c48517f6192ff987cd5071"
@@ -2154,9 +2203,9 @@ sequelize-pool@^2.3.0:
   integrity sha512-Ibz08vnXvkZ8LJTiUOxRcj1Ckdn7qafNZ2t59jYHMX1VIebTAOYefWdRYFt6z6+hy52WGthAHAoLc9hvk3onqA==
 
 sequelize@^5.9.2:
-  version "5.10.3"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-5.10.3.tgz#a4bafc3c540f1fa1a28752b9f8cdfacbba025715"
-  integrity sha512-Eabksjfb2kuX/a/7Mt2iHneos0PZxP5f74bdm1ktiG3Y9utfevNr+nIZ0sCvQW6jbJFwNtiLndTxUsNgYK8qpg==
+  version "5.11.0"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-5.11.0.tgz#5aad54cb0cf5d0ba99786bffb2674a8a9051d564"
+  integrity sha512-JcCX87sqiAelFtIzmvgEGWoFjcwqaJIDI9MNm9RtBh5mY5j+L/9sk644imkd1kX3julvEXeu9KCXY/Ofje0rCQ==
   dependencies:
     bluebird "^3.5.0"
     cls-bluebird "^2.1.0"
@@ -2230,6 +2279,14 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+
+smtp-connection@2.12.0:
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/smtp-connection/-/smtp-connection-2.12.0.tgz#d76ef9127cb23c2259edb1e8349c2e8d5e2d74c1"
+  integrity sha1-1275EnyyPCJZ7bHoNJwujV4tdME=
+  dependencies:
+    httpntlm "1.6.1"
+    nodemailer-shared "1.1.0"
 
 snapdragon-node@^2.0.1:
   version "2.1.1"
@@ -2481,6 +2538,11 @@ undefsafe@^2.0.2:
   dependencies:
     debug "^2.2.0"
 
+underscore@~1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.7.0.tgz#6bbaf0877500d36be34ecaa584e0db9fef035209"
+  integrity sha1-a7rwh3UA02vjTsqlhODbn+8DUgk=
+
 union-value@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/union-value/-/union-value-1.0.1.tgz#0b6fe7b835aecda61c6ea4d4f02c14221e109847"
@@ -2611,9 +2673,9 @@ widest-line@^2.0.0:
     string-width "^2.1.1"
 
 wkx@^0.4.6:
-  version "0.4.7"
-  resolved "https://registry.yarnpkg.com/wkx/-/wkx-0.4.7.tgz#ba0e4f9e785e95c9975856c1834f19a95c65cfb5"
-  integrity sha512-pHf546L96TK8RradLt1cWaIffstgv/zXZ14CGz5KnBs1AxBX0wm+IDphjJw0qrEqRv8P9W9CdTt8Z1unMRZ19A==
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/wkx/-/wkx-0.4.8.tgz#a092cf088d112683fdc7182fd31493b2c5820003"
+  integrity sha512-ikPXMM9IR/gy/LwiOSqWlSL3X/J5uk9EO2hHNRXS41eTLXaUFEVw9fn/593jW/tE5tedNg8YjT5HkCa4FqQZyQ==
   dependencies:
     "@types/node" "*"
 
