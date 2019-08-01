@@ -41,6 +41,7 @@ module.exports = `
         userId: Int!
         token: String!
         tokenExpiration: Int!,
-        scopes: [String!]
+        scopes: [String!],
+        firstName: String!
     }
 `;

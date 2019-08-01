@@ -295,7 +295,8 @@ const login = async args => {
       userId: user.id,
       token,
       tokenExpiration: process.env.jwtExpirationInt,
-      scopes
+      scopes,
+      firstName: user.firstName
     };
   } catch (error) {
     checkError(error);
