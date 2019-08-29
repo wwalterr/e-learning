@@ -2,7 +2,7 @@
 
 ---
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe6a3cb9ff634640afd1336755d68cb2)](https://www.codacy.com/app/Sphinxs/Graph?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Sphinxs/Graph&amp;utm_campaign=Badge_Grade)  [![Test Coverage](https://api.codeclimate.com/v1/badges/2e94725148c871f8bbaf/test_coverage)](https://codeclimate.com/github/Sphinxs/Graph/test_coverage) ![GitHub last commit](https://img.shields.io/github/last-commit/sphinxs/graph.svg) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)]([code-of-conduct.md](https://www.contributor-covenant.org/version/1/4/code-of-conduct))
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe6a3cb9ff634640afd1336755d68cb2)](https://www.codacy.com/app/Sphinxs/Graph?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Graph&utm_campaign=Badge_Grade) [![Test Coverage](https://api.codeclimate.com/v1/badges/2e94725148c871f8bbaf/test_coverage)](https://codeclimate.com/github/Sphinxs/Graph/test_coverage) ![GitHub last commit](https://img.shields.io/github/last-commit/sphinxs/graph.svg) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](<[code-of-conduct.md](https://www.contributor-covenant.org/version/1/4/code-of-conduct)>)
 
 ---
 
@@ -25,6 +25,7 @@ Install the Yarn:
 ```sh
 sudo apt-get update && sudo apt-get install yarn
 ```
+
 </details>
 
 <details>
@@ -40,6 +41,7 @@ Add the Docker to the system group:
 ```sh
 sudo groupadd docker
 ```
+
 </details>
 
 <details>
@@ -49,6 +51,7 @@ Install the Docker Compose:
 ```sh
 sudo apt install docker-compose
 ```
+
 </details>
 
 <details>
@@ -72,6 +75,7 @@ Generate the application' models in the database created above:
 ```sh
 yarn sync
 ```
+
 </details>
 
 <details>
@@ -81,6 +85,7 @@ Generate the application' models data in the database created before:
 ```sh
 yarn data
 ```
+
 </details>
 
 After create a database and generate the application' models, set the database configuration in the [config/config.json](./config/config.json) file.
@@ -96,6 +101,7 @@ Install the dependencies:
 ```sh
 yarn install
 ```
+
 </details>
 
 <details>
@@ -107,6 +113,7 @@ yarn start
 ```
 
 Open the [localhost:3000](http://localhost:3000) URL in the browser.
+
 </details>
 
 #### Collections
@@ -120,6 +127,7 @@ Install the Snap:
 ```sh
 sudo apt install snapd
 ```
+
 </details>
 
 <details>
@@ -129,11 +137,12 @@ Install the Insomnia:
 ```sh
 snap install insomnia
 ```
+
 </details>
 
 #### Debug
 
-To debug this project, you can use the [Visual Studio Code](https://code.visualstudio.com/) and [GraphiQL](https://github.com/graphql/graphiql).
+To debug this project, you can use the [Visual Studio Code](https://code.visualstudio.com/) and [GraphiQL](https://github.com/graphql/graphiql). To debug / understand the schema, you can use the [GraphQL Editor](https://app.graphqleditor.com/grapher/grapher).
 
 #### Style
 
