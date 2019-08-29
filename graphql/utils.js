@@ -43,6 +43,9 @@ const checkError = errorType => {
     case "bad gateway":
       throw new Error(errorName.badGateway);
 
+    case "unprocessable entity":
+      throw new Error(errorName.unprocessableEntity);
+
     default:
       throw new Error(errorName.internal);
   }

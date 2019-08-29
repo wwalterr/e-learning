@@ -5,7 +5,8 @@ const errorName = {
   badRequest: "badRequest",
   unauthorized: "unauthorized",
   noContent: "noContent",
-  badGateway: "badGateway"
+  badGateway: "badGateway",
+  unprocessableEntity: "unprocessableEntity"
 };
 
 const errorType = {
@@ -38,6 +39,11 @@ const errorType = {
   badGateway: {
     message: "the server received an invalid response from the upstream server",
     statusCode: 502
+  },
+  unprocessableEntity: {
+    message:
+      "the server understands the request, but the entity content is invalid",
+    statusCode: 422
   }
 };
 

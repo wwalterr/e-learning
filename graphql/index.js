@@ -77,6 +77,7 @@ module.exports.schema = buildSchema(`
         removeScope(name: String!): String!
         updateScope(params: ScopeUpdate!): Scope!
 
+        createUserScopeBulk(scopesNames: [String!], scopesIds: [Int!], userId: Int!): String!
         createUserScope(scopeId: Int!, userId: Int!): String!
         removeUserScope(scopeId: Int!, userId: Int!): String!
 

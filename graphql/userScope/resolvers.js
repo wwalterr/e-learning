@@ -38,6 +38,49 @@ const createUserScope = async (args, req) => {
   }
 };
 
+const createUserScopeBulk = async (args, req) => {
+  try {
+    checkAuthentication(req, userScopeScopes.createUserScopeBulk.name);
+  } catch (error) {
+    checkError(error);
+  }
+
+  try {
+    const scopes = args.scopesNames
+      ? await db.scope.findAll({ where: { name: args.scopesNames } })
+      : await db.scope.findAll({ where: { id: args.scopesIds } });
+
+    if (!scopes.length) throw "not found";
+
+    const scopesIds = scopes.map(scope => scope.dataValues.id);
+
+    if (args.scopesNames && args.scopesNames.length != scopesIds.length)
+      throw "unprocessable entity";
+
+    if (args.scopesIds && args.scopesIds.length != scopesIds.length)
+      throw "unprocessable entity";
+
+    const user = await queryHelper("user", { where: { id: args.userId } });
+
+    if (!user) throw "not found";
+
+    try {
+      const userScope = await db.userScope.bulkCreate(
+        scopesIds.map(scopeId => ({
+          scopeId,
+          userId: user.id
+        }))
+      );
+    } catch (error) {
+      throw "unique violation";
+    }
+
+    return "user and scopes associated";
+  } catch (error) {
+    checkError(error);
+  }
+};
+
 const removeUserScope = async (args, req) => {
   try {
     checkAuthentication(req, userScopeScopes.removeUserScope.name);
@@ -87,5 +130,6 @@ const listUserScopes = async (args, req) => {
 module.exports = {
   createUserScope,
   removeUserScope,
-  listUserScopes
+  listUserScopes,
+  createUserScopeBulk
 };
