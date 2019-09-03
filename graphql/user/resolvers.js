@@ -59,78 +59,73 @@ const createUser = async (args, req) => {
     checkError(error);
   }
 
+  let creator;
+
   try {
-    const user = await queryHelper("user", {
+    creator = await queryHelper("user", {
       where: { id: args.params.creator }
     });
 
-    if (!user) throw "not found";
+    if (!creator) throw "not found";
   } catch (error) {
     checkError(error);
   }
 
-  try {
-    let generatedPassword;
+  if (checkEmptyPassword(args.params.password)) {
+    let generatedPassword = generatePassword.generate({
+      length: 6,
+      numbers: true,
+      symbols: false
+    });
 
-    if (checkEmptyPassword(args.params.password)) {
-      generatedPassword = generatePassword.generate({
-        length: 6,
-        numbers: true,
-        symbols: false
-      });
+    args.params.password = generatedPassword;
 
-      args.params.password = generatedPassword;
+    const message = {
+      from: process.env.gmailFrom,
+      to: `${args.params.firstName || "Unknow"} <${args.params.email}>`,
+      subject: "Your account has been registered ✔",
+      text: "",
+      html: `
+        <p>You can use the password below to access the platform, and change your account' password: </p>
+
+        <span>Password: <strong>${generatedPassword}</strong></span>
+      `
+    };
+
+    try {
+      let info = await transporter.sendMail(message);
+    } catch (error) {
+      console.log(error);
+
+      throw error; // "bad gateway"
     }
+  }
 
+  try {
     if (!checkEmail(args.params.email)) throw "bad request";
 
     const hashedPassword = await bcryptjs.hash(args.params.password, 12);
 
-    const user = {
-      email: args.params.email,
-      password: hashedPassword,
-      cpf: args.params.cpf,
-      matriculation: args.params.matriculation,
-      firstName: args.params.firstName,
-      secondName: args.params.secondName,
-      creator: args.params.creator
-    };
-
     let userCreated;
 
     try {
-      userCreated = await db.user.create(user);
+      userCreated = await db.user.create({
+        email: args.params.email,
+        password: hashedPassword,
+        cpf: args.params.cpf,
+        matriculation: args.params.matriculation,
+        firstName: args.params.firstName,
+        secondName: args.params.secondName,
+        creator: args.params.creator
+      });
     } catch (error) {
       throw "unique violation";
     }
 
-    const creator = await queryHelper("user", {
-      where: { id: userCreated.dataValues.creator }
-    });
-
-    if (generatedPassword) {
-      const message = {
-        from: process.env.gmailFrom,
-        to: `${args.params.firstName} <${args.params.email}>`,
-        subject: "Your account has been registered ✔",
-        text: "",
-        html: `
-          <p>You can use the password below to access the platform and change your account' password: </p>
-
-          <span>Password: <strong>${args.params.password}</strong></span>
-        `
-      };
-
-      try {
-        let info = await transporter.sendMail(message);
-      } catch (error) {
-        console.log(error);
-
-        throw "bad gateway";
-      }
-    }
-
-    return objectFilter(userCreated.dataValues, transformUser(user, creator));
+    return objectFilter(
+      userCreated.dataValues,
+      transformUser(userCreated.dataValues, creator)
+    );
   } catch (error) {
     checkError(error);
   }
