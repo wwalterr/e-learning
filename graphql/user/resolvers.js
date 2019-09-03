@@ -252,6 +252,58 @@ const listUsers = async (args, req) => {
   }
 };
 
+const resetUserPassword = async (args, req) => {
+  try {
+    checkAuthentication(req, userScopes.resetUserPassword.name);
+  } catch (error) {
+    checkError(error);
+  }
+
+  try {
+    const user = await queryHelper(
+      "user",
+      { where: { email: args.email } },
+      true
+    );
+
+    if (!user) throw "not found";
+
+    let generatedPassword = generatePassword.generate({
+      length: 6,
+      numbers: true,
+      symbols: false
+    });
+
+    const message = {
+      from: process.env.gmailFrom,
+      to: `${user.dataValues.firstName || "Unknow"} <${user.dataValues.email}>`,
+      subject: "Your account password was reseted",
+      text: "",
+      html: `
+        <p>Your new password is: </p>
+
+        <span>Password: <strong>${generatedPassword}</strong></span>
+      `
+    };
+
+    try {
+      let info = await transporter.sendMail(message);
+    } catch (error) {
+      console.log(error);
+
+      throw "bad gateway";
+    }
+
+    const hashedPassword = await bcryptjs.hash(generatedPassword, 12);
+
+    user.update({ password: hashedPassword });
+
+    return "password reseted";
+  } catch (error) {
+    checkError(error);
+  }
+};
+
 const login = async args => {
   try {
     if (!checkEmail(args.email)) throw "bad request";
@@ -304,5 +356,6 @@ module.exports = {
   removeUser,
   updateUser,
   listUsers,
+  resetUserPassword,
   login
 };

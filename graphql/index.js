@@ -72,6 +72,7 @@ module.exports.schema = buildSchema(`
         createUser(params: UserInput!): User!
         removeUser(id: Int!): String!
         updateUser(params: UserUpdateInput!): User!
+        resetUserPassword(email: String!): String!
 
         createScope(params: ScopeInput!): Scope!
         removeScope(name: String!): String!
