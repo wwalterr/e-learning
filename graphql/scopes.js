@@ -28,5 +28,6 @@ module.exports = {
   ...courseUserScopes,
   ...classScopes,
   ...classUserScopes,
-  ...progressScopes
+  ...progressScopes,
+  dashboard: { name: "dashboard", description: "Artificial scope created in front-end to grant access to the dashboard" }
 };
