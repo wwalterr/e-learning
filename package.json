@@ -24,6 +24,6 @@
     "data": "node data.js"
   },
   "devDependencies": {
-    "nodemon": "2.0.1"
+    "nodemon": "2.0.2"
   }
 }
