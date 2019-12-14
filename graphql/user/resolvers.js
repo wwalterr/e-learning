@@ -289,7 +289,7 @@ const resetUserPassword = async (args, req) => {
     try {
       let info = await transporter.sendMail(message);
     } catch (error) {
-      console.error(error);
+      // console.log(error);
 
       throw "bad gateway";
     }
