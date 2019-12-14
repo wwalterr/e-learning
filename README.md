@@ -128,6 +128,8 @@ mysql> show tables;
 
 After create a database and generate the application' models, set the database configuration in the [config/config.json](./config/config.json) file.
 
+> If you have already generated the database structure and persisted the data in the database and want to recreate the structure and the data, run `docker system prune -f`
+
 </details>
 
 #### Run
@@ -140,9 +142,9 @@ Start the application:
 yarn start
 ```
 
-Open the [localhost:3000](http://localhost:3000) URL in the browser.
+Open the [localhost:3000](http://localhost:3000) URL in the browser. If is there already a service running at this port, try to kill the service `fuser -k 3000/tcp`.
 
-> If you register a user and not inform the password, the application will try to send a e-mail, for this the e-mail configuration needs to be set in the environment configurations file *nodemon.json*
+> If you register a user and not inform the password, the application will try to send a e-mail, for this the e-mail configuration needs to be set in the environment configurations file _nodemon.json_
 
 </details>
 
@@ -170,7 +172,7 @@ snap install insomnia
 
 </details>
 
-Now open Insomnia, or your REST client, and load the collection *insomnia.json* that is inside the *collections* folder.
+Now open Insomnia, or your REST client, and load the collection _insomnia.json_ that is inside the _collections_ folder.
 
 #### Debug
 
