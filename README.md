@@ -80,7 +80,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 Install the MySQL image and create a container:
 
 ```sh
-docker-compose -f docker-compose.yml up
+docker-compose -f docker-compose.yml up -d
 ```
 
 <details>
