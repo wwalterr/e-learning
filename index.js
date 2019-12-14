@@ -22,13 +22,15 @@ app.use(auth);
 // GraphQL endpoint
 const endpoint = "/graphql";
 
+const graphiql = true;
+
 // GraphQL middleware
 app.use(
   endpoint,
   graphQlHTTP({
     schema: graphqlSR.schema,
     rootValue: graphqlSR.resolvers,
-    graphiql: true,
+    graphiql: graphiql,
     pretty: true,
     customFormatErrorFn: error => {
       console.log(error);
@@ -49,8 +51,12 @@ app.use(
 
 // Index
 app.get("/", (req, res) => {
-  return res.redirect(endpoint);
+  if (graphiql) return res.redirect(endpoint);
 });
 
 // Start server
-app.listen(3000, () => {});
+const serverPort = 3000;
+
+app.listen(serverPort, () => {
+  console.log(`🚀  Server on at http://localhost:${serverPort}`);
+});
