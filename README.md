@@ -104,7 +104,7 @@ yarn data
 </details>
 
 <details>
-<summary>See Models</summary>
+<summary>See Models (optional)</summary>
 
 Enter inside the MySQL CLI through the MySQL container, default password **root**:
 
