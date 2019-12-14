@@ -33,7 +33,7 @@ app.use(
     graphiql,
     pretty: true,
     customFormatErrorFn: error => {
-      console.error(error);
+      // console.log(error);
 
       try {
         return {
