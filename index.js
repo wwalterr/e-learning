@@ -2,8 +2,6 @@ const graphQlHTTP = require("express-graphql");
 
 const express = require("express");
 
-const app = express();
-
 const graphqlSR = require("./graphql");
 
 const { errorType } = require("./graphql/constants");
@@ -12,14 +10,19 @@ const { auth } = require("./middleware/auth");
 
 const cors = require("cors");
 
-// Cross origin resources
+// Express application
+const app = express();
+
+// Cross origin resources middleware
 app.use(cors());
 
-// Authenticate / authorize
+// Authenticate / authorize middleware
 app.use(auth);
 
+// GraphQL endpoint
 const endpoint = "/graphql";
 
+// GraphQL middleware
 app.use(
   endpoint,
   graphQlHTTP({
@@ -44,8 +47,10 @@ app.use(
   })
 );
 
+// Index
 app.get("/", (req, res) => {
   return res.redirect(endpoint);
 });
 
+// Start server
 app.listen(3000, () => {});
