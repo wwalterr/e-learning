@@ -17,7 +17,7 @@ const queryHelper = async (
 
     return _attribute;
   } catch (error) {
-    console.error(error);
+    // console.log(error);
 
     return null;
   }

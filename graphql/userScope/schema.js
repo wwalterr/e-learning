@@ -5,4 +5,4 @@ module.exports = `
         createdAt: String
         updatedAt: String
     }
-`
+`;
