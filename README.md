@@ -83,6 +83,8 @@ Install the MySQL image and create a container:
 docker-compose -f docker-compose.yml up -d
 ```
 
+If you receive an error when you run `yarn sync`, try to create the database without detach mode `docker-compose -f docker-compose.yml up` and if you want it to run in background, hit **ctrl** + **c** and type `docker start database`.
+
 <details>
 <summary>Generate Models</summary>
 Generate the application' models in the database:
