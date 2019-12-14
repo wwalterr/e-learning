@@ -1,6 +1,6 @@
 {
   "env": {
-    "jwtKey": "aw&$om&-k&y",
+    "jwtKey": "k&y",
     "jwtExpiration": "48h",
     "jwtExpirationInt": 48,
     "gmailEmail": "",

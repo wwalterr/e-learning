@@ -1,27 +1,28 @@
-# editor
+# Editor
 .vscode
+.vs
 
-# workbench 
-*.mwb.bak
+# Workbench 
+*.mwb
 
-# logs
+# Logs
 logs
 *.log
 yarn-debug.log*
 yarn-error.log*
 
-# runtime data
+# Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
 
-# dependency directories
+# Dependency directories
 node_modules/
 
-# yarn Integrity file
+# Yarn integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+# Environment variables file
 .env
 .env.test

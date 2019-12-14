@@ -2,7 +2,7 @@
 
 ---
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe6a3cb9ff634640afd1336755d68cb2)](https://www.codacy.com/app/Sphinxs/Graph?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Sphinxs/Graph&amp;utm_campaign=Badge_Grade)  [![Test Coverage](https://api.codeclimate.com/v1/badges/2e94725148c871f8bbaf/test_coverage)](https://codeclimate.com/github/Sphinxs/Graph/test_coverage) ![GitHub last commit](https://img.shields.io/github/last-commit/sphinxs/graph.svg) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)]([code-of-conduct.md](https://www.contributor-covenant.org/version/1/4/code-of-conduct))
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe6a3cb9ff634640afd1336755d68cb2)](https://www.codacy.com/app/Sphinxs/Graph?utm_source=github.com&utm_medium=referral&utm_content=Sphinxs/Graph&utm_campaign=Badge_Grade) [![Test Coverage](https://api.codeclimate.com/v1/badges/2e94725148c871f8bbaf/test_coverage)](https://codeclimate.com/github/Sphinxs/Graph/test_coverage) ![GitHub last commit](https://img.shields.io/github/last-commit/sphinxs/graph.svg) [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v1.4%20adopted-ff69b4.svg)](<[code-of-conduct.md](https://www.contributor-covenant.org/version/1/4/code-of-conduct)>)
 
 ---
 
@@ -15,40 +15,64 @@ GraphQL API to manage MySQL resources
 Configure the repository:
 
 ```sh
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - && echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 ```
 
-Install the Yarn:
+Update the source list:
 
 ```sh
-sudo apt-get update && sudo apt-get install yarn
+sudo apt update
 ```
+
+Install Yarn:
+
+```sh
+sudo apt install yarn
+```
+
+</details>
+
+<details>
+<summary>Project Dependencies</summary>
+Install project dependencies:
+
+```sh
+yarn install
+```
+
 </details>
 
 <details>
 <summary>Docker</summary>
-Install the Docker container:
+Install Docker:
 
 ```sh
 sudo apt install docker.io
 ```
 
-Add the Docker to the system group:
+Add Docker to the system group:
 
 ```sh
 sudo groupadd docker
 ```
+
 </details>
 
 <details>
 <summary>Docker Compose</summary>
-Install the Docker Compose:
+
+Configure the repository:
 
 ```sh
-sudo apt install docker-compose
+sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 ```
+
+Apply executable permissions:
+
+```sh
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
 </details>
 
 <details>
@@ -61,26 +85,45 @@ docker-compose -f docker-compose.yml up
 
 <details>
 <summary>Generate Models</summary>
-Enter inside the MySQL CLI through the MySQL container:
+Generate the application' models in the database:
+
+```sh
+yarn sync
+```
+
+</details>
+
+<details>
+<summary>Generate Data</summary>
+Generate the application' models data in the database:
+
+```sh
+yarn data
+```
+
+</details>
+
+<details>
+<summary>See Models</summary>
+
+Enter inside the MySQL CLI through the MySQL container, default password **root**:
 
 ```sh
 docker exec -it database mysql -u root -p
 ```
 
-Generate the application' models in the database created above:
+Select the database:
 
 ```sh
-yarn sync
+mysql> use graph;
 ```
-</details>
 
-<details>
-<summary>Generate Data</summary>
-Generate the application' models data in the database created before:
+Show the tables:
 
 ```sh
-yarn data
+mysql> show tables;
 ```
+
 </details>
 
 After create a database and generate the application' models, set the database configuration in the [config/config.json](./config/config.json) file.
@@ -88,15 +131,6 @@ After create a database and generate the application' models, set the database c
 </details>
 
 #### Run
-
-<details>
-<summary>Dependencies</summary>
-Install the dependencies:
-
-```sh
-yarn install
-```
-</details>
 
 <details>
 <summary>Start</summary>
@@ -107,11 +141,14 @@ yarn start
 ```
 
 Open the [localhost:3000](http://localhost:3000) URL in the browser.
+
+> If you register a user and not inform the password, the application will try to send a e-mail, for this the e-mail configuration needs to be set in the environment configurations file *nodemon.json*
+
 </details>
 
 #### Collections
 
-To manage the collections its necessary to install the Insomnia request manager.
+To manage the collections its necessary to install some REST client, at this project we use Insomnia.
 
 <details>
 <summary>Snap</summary>
@@ -120,6 +157,7 @@ Install the Snap:
 ```sh
 sudo apt install snapd
 ```
+
 </details>
 
 <details>
@@ -129,7 +167,10 @@ Install the Insomnia:
 ```sh
 snap install insomnia
 ```
+
 </details>
+
+Now open Insomnia, or your REST client, and load the collection *insomnia.json* that is inside the *collections* folder.
 
 #### Debug
 

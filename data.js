@@ -8,6 +8,9 @@ const generateAdmin = async () => {
   try {
     const hashedPassword = await bcryptjs.hash("123456", 12);
 
+    // If the data in database is removed and generate, but
+    // the database itself is not recreated, the creator id
+    // can cause errors, once it is incremental
     const user = {
       email: "admin@gmail.com",
       password: hashedPassword,
