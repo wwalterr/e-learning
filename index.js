@@ -30,10 +30,10 @@ app.use(
   graphQlHTTP({
     schema: graphqlSR.schema,
     rootValue: graphqlSR.resolvers,
-    graphiql: graphiql,
+    graphiql,
     pretty: true,
     customFormatErrorFn: error => {
-      console.log(error);
+      console.error(error);
 
       try {
         return {
@@ -58,5 +58,5 @@ app.get("/", (req, res) => {
 const serverPort = 3000;
 
 app.listen(serverPort, () => {
-  console.log(`🚀  Server on at http://localhost:${serverPort}`);
+  console.log(`🚀  Server on at http://localhost:${serverPort}/`);
 });

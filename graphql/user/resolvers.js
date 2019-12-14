@@ -95,7 +95,7 @@ const createUser = async (args, req) => {
     try {
       let info = await transporter.sendMail(message);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       throw error; // "bad gateway"
     }
@@ -289,7 +289,7 @@ const resetUserPassword = async (args, req) => {
     try {
       let info = await transporter.sendMail(message);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       throw "bad gateway";
     }
