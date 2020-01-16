@@ -1,4 +1,6 @@
 module.exports = `
+    scalar Date
+    
     type Creator {
         id: Int!
         email: String
@@ -40,6 +42,8 @@ module.exports = `
     type Token {
         userId: Int!
         token: String!
+        issuedAt: Date!
+        expireAt: Date!
         tokenExpiration: Int!,
         scopes: [String!],
         firstName: String!

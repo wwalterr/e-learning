@@ -338,9 +338,17 @@ const login = async args => {
       expiresIn: process.env.jwtExpiration
     });
 
+    const date = new Date()
+
+    const issuedAt = date.getTime()
+
+    const expireAt = date.setTime(issuedAt + (process.env.jwtExpirationInt * 60 * 60 * 1000))
+
     return {
       userId: user.id,
       token,
+      issuedAt,
+      expireAt,
       tokenExpiration: process.env.jwtExpirationInt,
       scopes,
       firstName: user.firstName
