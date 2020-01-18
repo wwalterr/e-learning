@@ -18,9 +18,5 @@ module.exports = {
   listUsers: {
     name: "listUsers",
     description: "List all users registered by an user"
-  },
-  resetUserPassword: {
-    name: "resetUserPassword",
-    description: "Reset user password, through email"
   }
 };

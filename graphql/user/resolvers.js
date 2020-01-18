@@ -254,12 +254,6 @@ const listUsers = async (args, req) => {
 
 const resetUserPassword = async (args, req) => {
   try {
-    checkAuthentication(req, userScopes.resetUserPassword.name);
-  } catch (error) {
-    checkError(error);
-  }
-
-  try {
     const user = await queryHelper(
       "user",
       { where: { email: args.email } },
