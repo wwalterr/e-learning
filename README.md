@@ -90,7 +90,7 @@ If you receive an error when you run `yarn sync`, try to create the database wit
 Generate the application' models in the database:
 
 ```sh
-yarn sync
+yarn sync # --unhandled-rejections=strict
 ```
 
 </details>
