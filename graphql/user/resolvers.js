@@ -188,10 +188,13 @@ const updateUser = async (args, req) => {
         where: { id: userUpdated.dataValues.creator }
       });
 
-      return objectFilter(
-        userUpdated.dataValues,
-        transformUser(userUpdated.dataValues, creator)
-      );
+      return {
+        ...objectFilter(
+          userUpdated.dataValues,
+          transformUser(userUpdated.dataValues, creator)
+        ),
+        password: sjcl.decrypt("password", userUpdated.dataValues.password)
+      };
     }
 
     throw "no content";
