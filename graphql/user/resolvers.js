@@ -46,7 +46,10 @@ const searchUser = async (args, req) => {
 
     const creator = await queryHelper("user", { where: { id: user.creator } });
 
-    return objectFilter(user, transformUser(user, creator));
+    return {
+      ...objectFilter(user, transformUser(user, creator)),
+      password: sjcl.decrypt("password", user.password)
+    };
   } catch (error) {
     checkError(error);
   }
@@ -185,13 +188,10 @@ const updateUser = async (args, req) => {
         where: { id: userUpdated.dataValues.creator }
       });
 
-      return {
-        ...objectFilter(
-          userUpdated.dataValues,
-          transformUser(userUpdated.dataValues, creator)
-        ),
-        password: sjcl.decrypt("password", userUpdated.dataValues.password)
-      };
+      return objectFilter(
+        userUpdated.dataValues,
+        transformUser(userUpdated.dataValues, creator)
+      );
     }
 
     throw "no content";
