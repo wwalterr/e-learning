@@ -141,7 +141,7 @@ After create a database and generate the application' models, set the database c
 Start the application:
 
 ```sh
-yarn start
+yarn start # fuser -n tcp -k 3000 # If is there another process running at the 3000 port
 ```
 
 Open the [localhost:3000](http://localhost:3000) URL in the browser. If is there already a service running at this port, try to kill the service `fuser -k 3000/tcp`.
@@ -175,6 +175,14 @@ snap install insomnia
 </details>
 
 Now open Insomnia, or your REST client, and load the collection _insomnia.json_ that is inside the _collections_ folder.
+
+#### Clean
+
+To remove **all** the container, networks and volumes run:
+
+```sh
+docker rm $(docker ps -a -q) -f && docker network prune && docker volume prune
+```
 
 #### Debug
 
