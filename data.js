@@ -1,12 +1,12 @@
 const db = require("./models");
 
-const bcryptjs = require("bcryptjs");
+const sjcl = require("sjcl");
 
 const scopes = require("./graphql/scopes");
 
 const generateAdmin = async () => {
   try {
-    const hashedPassword = await bcryptjs.hash("123456", 12);
+    const hashedPassword = sjcl.encrypt("password", "123456");
 
     // If the data in database is removed and generate, but
     // the database itself is not recreated, the creator id

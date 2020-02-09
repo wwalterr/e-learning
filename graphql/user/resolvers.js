@@ -1,6 +1,6 @@
 const db = require("../../models");
 
-const bcryptjs = require("bcryptjs");
+const sjcl = require("sjcl");
 
 const { checkEmptyPassword, transformUser, checkEmail } = require("./utils");
 
@@ -104,7 +104,7 @@ const createUser = async (args, req) => {
   try {
     if (!checkEmail(args.params.email)) throw "bad request";
 
-    const hashedPassword = await bcryptjs.hash(args.params.password, 12);
+    const hashedPassword = sjcl.encrypt("password", args.params.password);
 
     let userCreated;
 
@@ -173,7 +173,7 @@ const updateUser = async (args, req) => {
     if ("password" in args.params) {
       if (checkEmptyPassword(args.params.password)) throw "bad request";
 
-      const hashedPassword = await bcryptjs.hash(args.params.password, 12);
+      const hashedPassword = sjcl.encrypt("password", args.params.password);
 
       args.params.password = hashedPassword;
     }
@@ -185,10 +185,13 @@ const updateUser = async (args, req) => {
         where: { id: userUpdated.dataValues.creator }
       });
 
-      return objectFilter(
-        userUpdated.dataValues,
-        transformUser(userUpdated.dataValues, creator)
-      );
+      return {
+        ...objectFilter(
+          userUpdated.dataValues,
+          transformUser(userUpdated.dataValues, creator)
+        ),
+        password: sjcl.decrypt("password", userUpdated.dataValues.password)
+      };
     }
 
     throw "no content";
@@ -288,7 +291,7 @@ const resetUserPassword = async (args, req) => {
       throw "bad gateway";
     }
 
-    const hashedPassword = await bcryptjs.hash(generatedPassword, 12);
+    const hashedPassword = sjcl.encrypt("password", generatedPassword);
 
     user.update({ password: hashedPassword });
 
@@ -314,10 +317,12 @@ const login = async args => {
 
     if (!user) throw "not found";
 
-    const isEqual = await bcryptjs.compare(
-      args.password,
-      user.dataValues.password
-    );
+    const isEqual =
+      args.password ===
+      sjcl.decrypt(
+        "password",
+        JSON.stringify(JSON.parse(user.dataValues.password))
+      );
 
     if (!isEqual) throw "unauthorized";
 
@@ -332,11 +337,13 @@ const login = async args => {
       expiresIn: process.env.jwtExpiration
     });
 
-    const date = new Date()
+    const date = new Date();
 
-    const issuedAt = date.getTime()
+    const issuedAt = date.getTime();
 
-    const expireAt = date.setTime(issuedAt + (process.env.jwtExpirationInt * 60 * 60 * 1000))
+    const expireAt = date.setTime(
+      issuedAt + process.env.jwtExpirationInt * 60 * 60 * 1000
+    );
 
     return {
       userId: user.id,
