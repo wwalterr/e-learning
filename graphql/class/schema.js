@@ -19,7 +19,7 @@ module.exports = `
     }
 
     input ClassUpdateInput {
-        id: Int
+        id: Int!
         vacancies: Int
         instructor: Int
         room: String
