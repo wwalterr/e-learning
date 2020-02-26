@@ -14,13 +14,7 @@ services:
       MYSQL_PASSWORD: root
     volumes:
       - database-volume:/var/lib/mysql
-    # networks:
-      # - graph-network
     
 volumes:
   database-volume:
     external: false
-
-# networks:
-  # graph-network:
-    # driver: bridge
