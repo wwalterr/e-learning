@@ -14,54 +14,34 @@ const generateAdmin = async () => {
     const user = {
       email: "admin@gmail.com",
       password: hashedPassword,
-      cpf: "92711239055",
-      matriculation: "4000",
+      cpf: "00000000000",
+      matriculation: "0000",
       firstName: "Admin",
-      secondName: "Management",
+      secondName: "",
       creator: 1
     };
 
     const address = {
-      street: "Rua Benedito Correia Penha",
-      number: 101,
-      complement: "Floor 2",
-      city: "Vitória",
-      state: "Espírito Santo",
-      zipCode: "29120311",
+      street: "Street",
+      number: 000,
+      complement: "Complement",
+      city: "City",
+      state: "State",
+      zipCode: "00000000",
       userId: 1
     };
 
     const contact = {
       email: "admin-backup@gmail.com",
-      phone: "34991634340",
+      phone: "0000000000000",
       userId: 1
     };
 
-    const course1 = {
-      title: "Private",
-      description: "Learn how too play piano",
-      start: "2019-07-27T19:16:42.599Z",
-      end: "2019-07-27T19:16:57.509Z",
-      creator: 1,
-      private: true
-    };
-
-    const course2 = {
-      title: "Public",
-      description: "Learn how too play guitar",
-      start: "2019-07-27T19:16:42.599Z",
-      end: "2019-07-27T19:16:57.509Z",
-      creator: 1,
-      private: false
-    };
-
-    const userCreated = await db.user.create(user);
+	const userCreated = await db.user.create(user);
 
     const addressCreated = await db.address.create(address);
 
     const contactCreated = await db.contact.create(contact);
-
-    const coursesCreated = await db.course.bulkCreate([course1, course2]);
 
     userCreated.update({
       creator: userCreated.dataValues.id,
