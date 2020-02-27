@@ -43,7 +43,7 @@ module.exports.schema = buildSchema(`
     ${progressSchema}
 
     type RootQuery {
-        searchUser(id: Int!): User!
+        searchUser(id: Int, matriculation: String): User!
         listUsers(creator: Int, all: Boolean): [User!]
         login(email: String!, password: String!): Token!
 
