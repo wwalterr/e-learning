@@ -40,7 +40,7 @@ const searchUser = async (args, req) => {
   }
 
   try {
-    const user = await queryHelper("user", { where: { id: args.id } });
+    const user = await queryHelper("user", { where: { ...args } });
 
     if (!user) throw "not found";
 
