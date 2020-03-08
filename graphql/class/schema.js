@@ -28,6 +28,7 @@ module.exports = `
     }
 
     input ClassSearch {
+		id: Int
         vacancies: Int
         instructor: Int
         room: String
