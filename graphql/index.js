@@ -44,7 +44,7 @@ module.exports.schema = buildSchema(`
 
     type RootQuery {
         searchUser(id: Int, matriculation: String): User!
-        listUsers(creator: Int, all: Boolean): [User!]
+        listUsers(creator: Int, all: Boolean, start: String): [User!]
         login(email: String!, password: String!): Token!
 
         searchScope(name: String!): Scope!

@@ -211,7 +211,7 @@ const listUsers = async (args, req) => {
   }
 
   try {
-    const users = !("creator" in args)
+    let users = !("creator" in args)
       ? await db.user.findAll()
       : await db.user.findAll({
           where: {
@@ -219,6 +219,18 @@ const listUsers = async (args, req) => {
             id: { [db.Sequelize.Op.notIn]: [args.creator] }
           }
         });
+
+    if ("start" in args) {
+      console.log(new Date(args.start).toISOString());
+
+      users = await db.user.findAll({
+        where: {
+          createdAt: {
+            [db.Sequelize.Op.gte]: new Date(args.start).toISOString()
+          }
+        }
+      });
+    }
 
     if (!users.length) throw "not found";
 
