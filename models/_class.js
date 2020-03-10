@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       shift: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      time: {
+        type: DataTypes.TIME,
+        allowNull: false
       }
     },
     {

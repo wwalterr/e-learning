@@ -16,6 +16,7 @@ module.exports = `
         room: String!
         shift: String!
         courseId: Int!
+        time: String!
     }
 
     input ClassUpdateInput {

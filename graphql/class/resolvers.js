@@ -39,7 +39,8 @@ const createClass = async (args, req) => {
       instructor: args.params.instructor,
       room: args.params.room,
       shift: args.params.shift,
-      courseId: args.params.courseId
+      courseId: args.params.courseId,
+      time: args.params.time
     };
 
     let classCreated = await db.class.create(_class);
