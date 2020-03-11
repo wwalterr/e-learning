@@ -7,7 +7,8 @@ module.exports = `
         shift: String
         createdAt: String
         updatedAt: String
-        courseId: Int
+		courseId: Int
+		time: String
     }
 
     input ClassInput {
@@ -25,7 +26,8 @@ module.exports = `
         instructor: Int
         room: String
         shift: String
-        courseId: Int
+		courseId: Int
+		time: String
     }
 
     input ClassSearch {
@@ -34,6 +36,7 @@ module.exports = `
         instructor: Int
         room: String
         shift: String
-        courseId: Int
+		courseId: Int
+		time: String
     }
 `;
