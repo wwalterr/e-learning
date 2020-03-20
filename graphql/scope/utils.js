@@ -2,7 +2,7 @@ const { createdAtUpdatedAt } = require("../utils");
 
 const transformScope = scope => {
   return {
-    id: null,
+    // id: null,
     ...createdAtUpdatedAt(scope)
   };
 };
