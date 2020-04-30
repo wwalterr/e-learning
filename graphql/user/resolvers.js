@@ -74,6 +74,8 @@ const createUser = async (args, req) => {
     checkError(error);
   }
 
+  let password = args.params.password
+
   if (checkEmptyPassword(args.params.password)) {
     let generatedPassword = generatePassword.generate({
       length: 6,
@@ -81,7 +83,7 @@ const createUser = async (args, req) => {
       symbols: false
     });
 
-    args.params.password = generatedPassword;
+    password = generatedPassword;
 
     const message = {
       from: process.env.gmailFrom,
@@ -107,7 +109,7 @@ const createUser = async (args, req) => {
   try {
     if (!checkEmail(args.params.email)) throw "bad request";
 
-    const hashedPassword = sjcl.encrypt("password", args.params.password);
+    const hashedPassword = sjcl.encrypt("password", password);
 
     let userCreated;
 
