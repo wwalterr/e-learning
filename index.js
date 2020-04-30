@@ -22,7 +22,7 @@ app.use(auth);
 // GraphQL endpoint
 const endpoint = "/graphql";
 
-const graphiql = true;
+const graphiql = false;
 
 // GraphQL middleware
 app.use(
