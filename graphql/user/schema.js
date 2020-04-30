@@ -22,7 +22,7 @@ module.exports = `
 
     input UserInput {
         email: String!
-        password: String!
+        password: String
         cpf: String
         matriculation: String!
         firstName: String

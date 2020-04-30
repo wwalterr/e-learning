@@ -1,7 +1,7 @@
 const { createdAtUpdatedAt } = require("../utils");
 
 const checkEmptyPassword = password => {
-  if (password === "") return true;
+  if (!password || password === "") return true;
 
   return false;
 };
