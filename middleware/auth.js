@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 
+require("dotenv").config();
+
 // The token is issued in the user schema / resolvers,
 // more precisely in the login resolver, that uses
 // the environment variables to set the JWT secret
@@ -39,7 +41,7 @@ const auth = (req, res, next) => {
   try {
     // Decode the token, using the key that was used
     // to generate the token
-    decodedToken = jwt.verify(token, process.env.jwtKey);
+    decodedToken = jwt.verify(token, process.env.JWT_KEY);
   } catch (error) {
     // There is authorization in the request, but the
     // token is not valid, the key is not the right key

@@ -8,7 +8,7 @@ const {
   checkError,
   objectFilter,
   checkAuthentication,
-  queryHelper
+  queryHelper,
 } = require("../utils");
 
 const jwt = require("jsonwebtoken");
@@ -21,14 +21,16 @@ const nodemailer = require("nodemailer");
 
 const smtpTransport = require("nodemailer-smtp-transport");
 
+require("dotenv").config();
+
 const transporter = nodemailer.createTransport(
   smtpTransport({
     service: "gmail",
     host: "smtp.gmail.com",
     auth: {
-      user: process.env.gmailEmail,
-      pass: process.env.gmailPassword
-    }
+      user: process.env.GMAIL_EMAIL,
+      pass: process.env.GMAIL_PASSWORD,
+    },
   })
 );
 
@@ -48,7 +50,7 @@ const searchUser = async (args, req) => {
 
     return {
       ...objectFilter(user, transformUser(user, creator)),
-      password: sjcl.decrypt("password", user.password)
+      password: sjcl.decrypt("password", user.password),
     };
   } catch (error) {
     checkError(error);
@@ -66,7 +68,7 @@ const createUser = async (args, req) => {
 
   try {
     creator = await queryHelper("user", {
-      where: { id: args.params.creator }
+      where: { id: args.params.creator },
     });
 
     if (!creator) throw "not found";
@@ -74,19 +76,19 @@ const createUser = async (args, req) => {
     checkError(error);
   }
 
-  let password = args.params.password
+  let password = args.params.password;
 
   if (checkEmptyPassword(args.params.password)) {
     let generatedPassword = generatePassword.generate({
       length: 6,
       numbers: true,
-      symbols: false
+      symbols: false,
     });
 
     password = generatedPassword;
 
     const message = {
-      from: process.env.gmailFrom,
+      from: process.env.GMAIL_FROM,
       to: `${args.params.firstName || "Unknow"} <${args.params.email}>`,
       subject: "Your account has been registered ✔",
       text: "",
@@ -94,7 +96,7 @@ const createUser = async (args, req) => {
         <p>You can use the password below to access the platform, and change your account' password: </p>
 
         <span>Password: <strong>${generatedPassword}</strong></span>
-      `
+      `,
     };
 
     try {
@@ -121,7 +123,7 @@ const createUser = async (args, req) => {
         matriculation: args.params.matriculation,
         firstName: args.params.firstName,
         secondName: args.params.secondName,
-        creator: args.params.creator
+        creator: args.params.creator,
       });
     } catch (error) {
       throw "unique violation";
@@ -146,7 +148,7 @@ const removeUser = async (args, req) => {
   try {
     const userRemoved = await db.user.destroy({
       where: { id: args.id },
-      limit: 1
+      limit: 1,
     });
 
     if (!userRemoved) throw "not found";
@@ -187,7 +189,7 @@ const updateUser = async (args, req) => {
 
     if (Object.keys(userUpdated._changed).length) {
       const creator = await queryHelper("user", {
-        where: { id: userUpdated.dataValues.creator }
+        where: { id: userUpdated.dataValues.creator },
       });
 
       return {
@@ -195,7 +197,7 @@ const updateUser = async (args, req) => {
           userUpdated.dataValues,
           transformUser(userUpdated.dataValues, creator)
         ),
-        password: sjcl.decrypt("password", userUpdated.dataValues.password)
+        password: sjcl.decrypt("password", userUpdated.dataValues.password),
       };
     }
 
@@ -218,8 +220,8 @@ const listUsers = async (args, req) => {
       : await db.user.findAll({
           where: {
             creator: args.creator,
-            id: { [db.Sequelize.Op.notIn]: [args.creator] }
-          }
+            id: { [db.Sequelize.Op.notIn]: [args.creator] },
+          },
         });
 
     if ("start" in args) {
@@ -228,9 +230,9 @@ const listUsers = async (args, req) => {
       users = await db.user.findAll({
         where: {
           createdAt: {
-            [db.Sequelize.Op.gte]: new Date(args.start).toISOString()
-          }
-        }
+            [db.Sequelize.Op.gte]: new Date(args.start).toISOString(),
+          },
+        },
       });
     }
 
@@ -240,7 +242,7 @@ const listUsers = async (args, req) => {
 
     if ("creator" in args) {
       creator = await queryHelper("user", {
-        where: { id: args.creator }
+        where: { id: args.creator },
       });
     }
 
@@ -254,7 +256,7 @@ const listUsers = async (args, req) => {
         );
       else {
         let _creator = await queryHelper("user", {
-          where: { id: user.creator }
+          where: { id: user.creator },
         });
 
         _users.push(
@@ -285,11 +287,11 @@ const resetUserPassword = async (args, req) => {
     let generatedPassword = generatePassword.generate({
       length: 6,
       numbers: true,
-      symbols: false
+      symbols: false,
     });
 
     const message = {
-      from: process.env.gmailFrom,
+      from: process.env.GMAIL_FROM,
       to: `${user.dataValues.firstName || "Unknow"} <${user.dataValues.email}>`,
       subject: "Your account password was reseted",
       text: "",
@@ -297,7 +299,7 @@ const resetUserPassword = async (args, req) => {
         <p>Your new password is: </p>
 
         <span>Password: <strong>${generatedPassword}</strong></span>
-      `
+      `,
     };
 
     try {
@@ -318,7 +320,7 @@ const resetUserPassword = async (args, req) => {
   }
 };
 
-const login = async args => {
+const login = async (args) => {
   try {
     if (!checkEmail(args.email)) throw "bad request";
 
@@ -327,9 +329,9 @@ const login = async args => {
       include: [
         {
           model: db.scope,
-          as: "scopes"
-        }
-      ]
+          as: "scopes",
+        },
+      ],
     });
 
     if (!user) throw "not found";
@@ -343,15 +345,15 @@ const login = async args => {
 
     if (!isEqual) throw "unauthorized";
 
-    const scopes = user.scopes.map(scope => scope.dataValues.name);
+    const scopes = user.scopes.map((scope) => scope.dataValues.name);
 
     // The first argument is the data stored in the token
     //
     // The second argument is used to hash / validate the token
     //
     // The third argument define the token expiration
-    const token = jwt.sign({ userId: user.id, scopes }, process.env.jwtKey, {
-      expiresIn: process.env.jwtExpiration
+    const token = jwt.sign({ userId: user.id, scopes }, process.env.JWT_KEY, {
+      expiresIn: process.env.JWT_EXPIRATION,
     });
 
     const date = new Date();
@@ -359,7 +361,7 @@ const login = async args => {
     const issuedAt = date.getTime();
 
     const expireAt = date.setTime(
-      issuedAt + process.env.jwtExpirationInt * 60 * 60 * 1000
+      issuedAt + process.env.JWT_EXPIRATION_INT * 60 * 60 * 1000
     );
 
     return {
@@ -367,9 +369,9 @@ const login = async args => {
       token,
       issuedAt,
       expireAt,
-      tokenExpiration: process.env.jwtExpirationInt,
+      tokenExpiration: process.env.JWT_EXPIRATION_INT,
       scopes,
-      firstName: user.firstName
+      firstName: user.firstName,
     };
   } catch (error) {
     checkError(error);
@@ -383,5 +385,5 @@ module.exports = {
   updateUser,
   listUsers,
   resetUserPassword,
-  login
+  login,
 };

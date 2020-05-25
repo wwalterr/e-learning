@@ -10,6 +10,8 @@ const { auth } = require("./middleware/auth");
 
 const cors = require("cors");
 
+require("dotenv").config();
+
 // Express application
 const app = express();
 

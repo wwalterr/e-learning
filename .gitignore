@@ -3,6 +3,7 @@
 
 # Dependency
 node_modules
+package-lock.json
 
 # Yarn
 yarn.lock
@@ -11,6 +12,9 @@ yarn.lock
 # Log
 yarn-debug.log*
 yarn-error.log*
+
+# Environment
+.env
 
 # Workbench 
 *.mwb
