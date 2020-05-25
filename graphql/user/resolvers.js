@@ -353,7 +353,7 @@ const login = async (args) => {
     //
     // The third argument define the token expiration
     const token = jwt.sign({ userId: user.id, scopes }, process.env.JWT_KEY, {
-      expiresIn: process.env.JWT_EXPIRATION_INT * 60 * 60 * 1000,
+      expiresIn: process.env.JWT_EXPIRATION,
     });
 
     const date = new Date();
