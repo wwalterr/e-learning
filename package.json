@@ -9,14 +9,14 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
-    "generate-password": "^1.4.2",
+    "generate-password": "^1.5.1",
     "graphql": "^15.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.0.0",
-    "nodemailer": "^6.3.0",
+    "mysql2": "^2.1.0",
+    "nodemailer": "^6.4.6",
     "nodemailer-smtp-transport": "^2.7.4",
-    "sequelize": "^5.9.2",
-    "sequelize-cli": "^5.5.0",
+    "sequelize": "^5.21.10",
+    "sequelize-cli": "^5.5.1",
     "sjcl": "https://github.com/bitwiseshiftleft/sjcl"
   },
   "scripts": {
@@ -25,6 +25,6 @@
     "data": "node data.js"
   },
   "devDependencies": {
-    "nodemon": "2.0.3"
+    "nodemon": "2.0.4"
   }
 }
