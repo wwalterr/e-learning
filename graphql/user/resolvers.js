@@ -361,7 +361,7 @@ const login = async (args) => {
     const issuedAt = date.getTime();
 
     const expireAt = date.setTime(
-      issuedAt + process.env.JWT_EXPIRATION_INT * 60 * 60 * 1000
+      issuedAt + parseInt(process.env.JWT_EXPIRATION_INT) * 60 * 60 * 1000
     );
 
     return {
@@ -369,11 +369,13 @@ const login = async (args) => {
       token,
       issuedAt,
       expireAt,
-      tokenExpiration: process.env.JWT_EXPIRATION_INT,
+      tokenExpiration: parseInt(process.env.JWT_EXPIRATION_INT),
       scopes,
       firstName: user.firstName,
     };
   } catch (error) {
+    console.log(error);
+
     checkError(error);
   }
 };
