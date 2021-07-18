@@ -148,5 +148,5 @@ module.exports.resolvers = {
   ...courseUserResolvers,
   ...classResolvers,
   ...classUserResolvers,
-  ...progressResolvers
+  ...progressResolvers,
 };

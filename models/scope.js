@@ -6,26 +6,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        noUpdate: true
+        noUpdate: true,
       },
       name: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
-        defaultValue: ""
+        defaultValue: "",
       },
-      description: DataTypes.TEXT
+      description: DataTypes.TEXT,
     },
     {
-      freezeTableName: true
+      freezeTableName: true,
     }
   );
 
-  Scope.associate = models => {
+  Scope.associate = (models) => {
     Scope.belongsToMany(models.user, {
       through: models.userScope,
       foreignKey: "scopeId",
-      as: "users"
+      as: "users",
     });
   };
 

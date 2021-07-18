@@ -6,26 +6,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        noUpdate: true
+        noUpdate: true,
       },
       attendance: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       grade: {
         type: DataTypes.FLOAT,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
     {
-      freezeTableName: true
+      freezeTableName: true,
     }
   );
 
-  Progress.associate = models => {
+  Progress.associate = (models) => {
     Progress.belongsTo(models.classUser, {
       foreignKey: "classUserId",
-      as: "progress"
+      as: "progress",
     });
   };
 

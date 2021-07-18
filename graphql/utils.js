@@ -17,13 +17,11 @@ const queryHelper = async (
 
     return _attribute;
   } catch (error) {
-    // console.log(error);
-
     return null;
   }
 };
 
-const checkError = errorType => {
+const checkError = (errorType) => {
   switch (errorType) {
     case "unique violation":
       throw new Error(errorName.conflict);
@@ -51,11 +49,11 @@ const checkError = errorType => {
   }
 };
 
-const formatDate = date => {
+const formatDate = (date) => {
   return new Date(date).toISOString();
 };
 
-const createdAtUpdatedAt = args => {
+const createdAtUpdatedAt = (args) => {
   const defaultDates = { createdAt: "", updatedAt: "" };
 
   if ("createdAt" in args && "updatedAt" in args) {
@@ -99,10 +97,11 @@ const checkAuthentication = (req, scope) => {
   }
 };
 
-const checkISODate = date => {
+const checkISODate = (date) => {
   // If the date it's totally out of the pattern, an internal error will, probably, be issued
 
-  const pattern = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
+  const pattern =
+    /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
 
   return pattern.test(date);
 };
@@ -114,5 +113,5 @@ module.exports = {
   createdAtUpdatedAt,
   objectFilter,
   checkAuthentication,
-  checkISODate
+  checkISODate,
 };
