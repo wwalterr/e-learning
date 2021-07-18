@@ -18,12 +18,13 @@ const app = express();
 // Cross origin resources middleware
 app.use(cors());
 
-// Authenticate / authorize middleware
+// Authentication and authentication middleware
 app.use(auth);
 
 // GraphQL endpoint
 const endpoint = "/graphql";
 
+// GraphQL playground
 const graphiql = false;
 
 // GraphQL middleware
@@ -34,20 +35,18 @@ app.use(
     rootValue: graphqlSR.resolvers,
     graphiql,
     pretty: true,
-    customFormatErrorFn: error => {
-      // console.log(error);
-
+    customFormatErrorFn: (error) => {
       try {
         return {
           message: errorType[error.message].message,
           statusCode: errorType[error.message].statusCode,
           path: error.path,
-          locations: error.locations
+          locations: error.locations,
         };
       } catch (_error) {
         return error;
       }
-    }
+    },
   })
 );
 
@@ -56,9 +55,11 @@ app.get("/", (req, res) => {
   if (graphiql) return res.redirect(endpoint);
 });
 
-// Start server
+// Start a server
 const serverPort = 3000;
 
 app.listen(serverPort, () => {
-  console.log(`🚀  Server on at http://localhost:${serverPort}/`);
+  console.log(
+    `Server listening on http://localhost:\x1b[32m${serverPort}\x1b[0m`
+  );
 });

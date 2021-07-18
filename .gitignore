@@ -1,20 +1,17 @@
 # Editor
 .vscode
 
+# Workbench 
+*.mwb
+
+# Environment
+.env
+
 # Dependency
 node_modules
 package-lock.json
 
 # Yarn
 yarn.lock
-.yarn_cache
-
-# Log
 yarn-debug.log*
 yarn-error.log*
-
-# Environment
-.env
-
-# Workbench 
-*.mwb

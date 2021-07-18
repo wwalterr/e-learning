@@ -1,9 +1,7 @@
 {
-  "name": "Graph",
-  "version": "2.0.0",
+  "name": "e-learning",
+  "version": "1.0.0",
   "main": "index.js",
-  "author": "Sphinxs",
-  "license": "UNLICENSED",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -20,7 +18,8 @@
     "sjcl": "https://github.com/bitwiseshiftleft/sjcl"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "start:development": "nodemon index.js",
     "sync": "node sync.js",
     "data": "node data.js"
   },

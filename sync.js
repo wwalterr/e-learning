@@ -8,8 +8,8 @@ const sync = async () => {
   }
 };
 
-module.exports = {
-  sync
-};
-
 if (require.main === module) sync();
+
+module.exports = {
+  sync,
+};

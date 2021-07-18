@@ -18,7 +18,7 @@ const generateAdmin = async () => {
       matriculation: "0000",
       firstName: "Admin",
       secondName: "",
-      creator: 1
+      creator: 1,
     };
 
     const address = {
@@ -28,16 +28,16 @@ const generateAdmin = async () => {
       city: "City",
       state: "State",
       zipCode: "00000000",
-      userId: 1
+      userId: 1,
     };
 
     const contact = {
-      email: "admin-backup@gmail.com",
+      email: "backup@gmail.com",
       phone: "0000000000000",
-      userId: 1
+      userId: 1,
     };
 
-	const userCreated = await db.user.create(user);
+    const userCreated = await db.user.create(user);
 
     const addressCreated = await db.address.create(address);
 
@@ -46,7 +46,7 @@ const generateAdmin = async () => {
     userCreated.update({
       creator: userCreated.dataValues.id,
       address: { ...addressCreated.dataValues },
-      contact: { ...contactCreated.dataValues }
+      contact: { ...contactCreated.dataValues },
     });
 
     return userCreated;
@@ -59,7 +59,7 @@ const generateScopes = async () => {
   try {
     return await db.scope
       .bulkCreate(Object.values(scopes))
-      .map(scope => scope.dataValues);
+      .map((scope) => scope.dataValues);
   } catch (error) {
     throw error;
   }
@@ -71,14 +71,14 @@ const userScope = async () => {
 
     const _scopes = await generateScopes();
 
-    const userScopeValues = _scopes.map(scope => ({
+    const userScopeValues = _scopes.map((scope) => ({
       userId: user.dataValues.id,
-      scopeId: scope.id
+      scopeId: scope.id,
     }));
 
     return await db.userScope
       .bulkCreate(userScopeValues)
-      .map(userScope => userScope.dataValues);
+      .map((userScope) => userScope.dataValues);
   } catch (error) {
     throw error;
   }
@@ -87,7 +87,7 @@ const userScope = async () => {
 module.exports = {
   generateAdmin,
   generateScopes,
-  userScope
+  userScope,
 };
 
 if (require.main === module) userScope();
