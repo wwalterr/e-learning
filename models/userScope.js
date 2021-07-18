@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     "userScope",
     {},
     {
-      freezeTableName: true
+      freezeTableName: true,
     }
   );
 

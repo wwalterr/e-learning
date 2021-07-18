@@ -6,59 +6,59 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        noUpdate: true
+        noUpdate: true,
       },
       email: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
-        noUpdate: true
+        noUpdate: true,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       cpf: {
         type: DataTypes.STRING(11),
-        unique: true
+        unique: true,
       },
       matriculation: {
         type: DataTypes.STRING(8),
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       firstName: DataTypes.STRING,
       secondName: DataTypes.STRING,
       creator: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        noUpdate: true
-      }
+        noUpdate: true,
+      },
     },
     {
-      freezeTableName: true
+      freezeTableName: true,
     }
   );
 
-  User.associate = models => {
+  User.associate = (models) => {
     User.hasMany(models.contact, { as: "contacts" });
 
     User.belongsToMany(models.scope, {
       through: models.userScope,
       foreignKey: "userId",
-      as: "scopes"
+      as: "scopes",
     });
 
     User.belongsToMany(models.course, {
       through: models.courseUser,
       foreignKey: "userId",
-      as: "courses"
+      as: "courses",
     });
 
     User.belongsToMany(models.class, {
       through: models.classUser,
       foreignKey: "userId",
-      as: "classes"
+      as: "classes",
     });
   };
 

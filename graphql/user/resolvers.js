@@ -102,8 +102,6 @@ const createUser = async (args, req) => {
     try {
       let info = await transporter.sendMail(message);
     } catch (error) {
-      // console.log(error);
-
       throw error; // "bad gateway"
     }
   }
@@ -305,8 +303,6 @@ const resetUserPassword = async (args, req) => {
     try {
       let info = await transporter.sendMail(message);
     } catch (error) {
-      // console.log(error);
-
       throw "bad gateway";
     }
 
@@ -347,12 +343,7 @@ const login = async (args) => {
 
     const scopes = user.scopes.map((scope) => scope.dataValues.name);
 
-    // The first argument is the data stored in the token
-    //
-    // The second argument is used to hash / validate the token
-    //
-    // The third argument define the token expiration
-    const token = jwt.sign({ userId: user.id, scopes }, process.env.JWT_KEY, {
+	const token = jwt.sign({ userId: user.id, scopes }, process.env.JWT_KEY, {
       expiresIn: process.env.JWT_EXPIRATION,
     });
 

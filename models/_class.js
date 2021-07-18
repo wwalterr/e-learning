@@ -6,41 +6,41 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        noUpdate: true
+        noUpdate: true,
       },
       vacancies: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       instructor: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       room: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       shift: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       time: {
         type: DataTypes.TIME,
-        allowNull: false
-      }
+        allowNull: false,
+      },
     },
     {
-      freezeTableName: true
+      freezeTableName: true,
     }
   );
 
-  Class.associate = models => {
+  Class.associate = (models) => {
     Class.belongsTo(models.course, { foreignKey: "courseId", as: "course" });
 
     Class.belongsToMany(models.user, {
       through: models.classUser,
       foreignKey: "classId",
-      as: "users"
+      as: "users",
     });
   };
 

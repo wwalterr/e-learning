@@ -6,11 +6,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        noUpdate: true
-      }
+        noUpdate: true,
+      },
     },
     {
-      freezeTableName: true
+      freezeTableName: true,
     }
   );
 

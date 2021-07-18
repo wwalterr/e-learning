@@ -108,10 +108,6 @@ const searchCourses = async (args, req) => {
 
     // N+1 problem, it needs to be optimized
     for (let course of courses) {
-      //   let _creator = await queryHelper("user", {
-      //     where: { id: course.creator }
-      //   });
-
       _courses.push(
         objectFilter(course.dataValues, transformCourse(course.dataValues))
       );
@@ -141,10 +137,6 @@ const listCourses = async (args, req) => {
 
     // N+1 problem, it needs to be optimized
     for (let course of courses) {
-      //   let _creator = await queryHelper("user", {
-      //     where: { id: course.creator }
-      //   });
-
       _courses.push(
         objectFilter(course.dataValues, transformCourse(course.dataValues))
       );

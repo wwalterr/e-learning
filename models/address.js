@@ -6,21 +6,21 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        noUpdate: true
+        noUpdate: true,
       },
       street: DataTypes.STRING,
       number: DataTypes.INTEGER,
       complement: DataTypes.STRING,
       city: DataTypes.STRING,
       state: DataTypes.STRING,
-      zipCode: DataTypes.STRING(15)
+      zipCode: DataTypes.STRING(15),
     },
     {
-      freezeTableName: true
+      freezeTableName: true,
     }
   );
 
-  Address.associate = models => {
+  Address.associate = (models) => {
     Address.belongsTo(models.user, { foreignKey: "userId", as: "address" });
   };
 
