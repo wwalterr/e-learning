@@ -66,6 +66,8 @@ yarn start
 
 ## Documentation
 
+See the [database model](./database/model.png) or use the database design [MySQL Workbench](https://www.mysql.com/products/workbench/) to change the model design and edit the *models* to reflect the design.
+
 Use the [Insomnia](https://insomnia.rest/) HTTP client to load the [E-Learning](./insomnia.json) playground.
 
 Use the command `docker system prune -f` to recreate the database models and clean the data.
