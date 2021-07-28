@@ -12,6 +12,8 @@ E-Learning GraphQL API to manage school courses, students and schedules.
 - [Express](https://expressjs.com/)
 - [GraphQL](https://graphql.org/)
 - [MySQL](https://www.mysql.com/)
+- [Sequelize](https://github.com/sequelize/sequelize)
+- [Mailer](https://github.com/nodemailer/nodemailer)
 - [Docker](https://www.docker.com/)
 
 ## Installation
@@ -45,7 +47,7 @@ docker-compose -f docker-compose.yml up -d
 Create the database models.
 
 ```sh
-yarn sync # --unhandled-rejections=strict as a parameter
+yarn sync # In case of errors, use --unhandled-rejections=strict as a parameter
 ```
 
 Create the default data and insert into the database.
